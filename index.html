@@ -1,163 +1,516 @@
-'use client';
-import { useState } from 'react';
+<!DOCTYPE html>
+<html lang="om">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Ai Oro Tech News</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;700;800&family=DM+Sans:wght@300;400;500&family=Cairo:wght@400;600;700&display=swap" rel="stylesheet"/>
+<style>
+:root{--bg:#06060f;--bg2:#0d1117;--purple:#7c3aed;--blue:#2563eb;--accent:#a78bfa;--text:#e2e8f0;--muted:#94a3b8;--dim:#6b7280;--card:rgba(255,255,255,.035);--border:rgba(255,255,255,.08);}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:linear-gradient(160deg,var(--bg) 0%,var(--bg2) 55%,#0a0a1e 100%);font-family:'DM Sans','Syne',sans-serif;color:var(--text);min-height:100vh;overflow-x:hidden}
+body.rtl{direction:rtl;font-family:'Cairo',sans-serif}
+::-webkit-scrollbar{width:3px}::-webkit-scrollbar-thumb{background:var(--purple);border-radius:2px}
+header{background:rgba(6,6,16,.96);backdrop-filter:blur(20px);border-bottom:1px solid rgba(124,58,237,.2);position:sticky;top:0;z-index:60;padding:0 14px}
+.hi{max-width:900px;margin:0 auto}
+.hr1{display:flex;align-items:center;justify-content:space-between;height:52px;gap:8px}
+.logo{display:flex;align-items:center;gap:8px;flex-shrink:0;cursor:pointer}
+.li{width:32px;height:32px;border-radius:8px;background:linear-gradient(135deg,var(--purple),var(--blue));display:flex;align-items:center;justify-content:center;font-size:16px}
+.ln{font-family:'Syne',sans-serif;font-weight:800;font-size:13px}
+.ls{font-size:9px;letter-spacing:1.2px;text-transform:uppercase;color:#22c55e}
+.lscroll{display:flex;gap:4px;overflow-x:auto;scrollbar-width:none}
+.lscroll::-webkit-scrollbar{display:none}
+.lbtn{white-space:nowrap;padding:3px 9px;border-radius:20px;font-size:11px;border:1px solid rgba(255,255,255,.09);background:rgba(255,255,255,.05);color:var(--dim);cursor:pointer;font-family:inherit;transition:all .15s}
+.lbtn.on{background:rgba(124,58,237,.4);border-color:var(--purple);color:#c4b5fd}
+.hr2{display:flex;align-items:center;gap:6px;padding-bottom:10px;overflow-x:auto;scrollbar-width:none}
+.hr2::-webkit-scrollbar{display:none}
+.nbtn{white-space:nowrap;padding:6px 14px;border-radius:9px;font-size:12px;border:1px solid rgba(255,255,255,.1);background:rgba(255,255,255,.05);color:var(--muted);cursor:pointer;font-family:inherit;transition:all .15s}
+.nbtn.on{background:linear-gradient(135deg,var(--purple),var(--blue));border-color:transparent;color:white;font-weight:700}
+main{max-width:900px;margin:0 auto;padding:16px 12px}
+/* SEARCH */
+.srow{display:flex;gap:8px;margin-bottom:16px}
+.si{flex:1;background:rgba(255,255,255,.06);border:1px solid rgba(109,40,217,.3);border-radius:12px;padding:11px 16px;color:var(--text);font-size:14px;font-family:inherit;outline:none;transition:border-color .2s}
+.si:focus{border-color:var(--purple)}
+.sbtn{background:linear-gradient(135deg,var(--purple),var(--blue));border:none;border-radius:12px;padding:11px 18px;color:white;font-size:15px;cursor:pointer;font-weight:700;flex-shrink:0}
+.xbtn{background:rgba(255,71,87,.15);border:1px solid rgba(255,71,87,.3);border-radius:12px;padding:11px 13px;color:#ff6b7a;cursor:pointer;font-size:13px;display:none;flex-shrink:0}
+/* TABS */
+.tabs{display:flex;gap:6px;overflow-x:auto;padding-bottom:8px;margin-bottom:16px;scrollbar-width:none}
+.tabs::-webkit-scrollbar{display:none}
+.tab{white-space:nowrap;padding:8px 16px;border-radius:20px;font-size:12px;border:1px solid rgba(255,255,255,.08);background:rgba(255,255,255,.05);color:var(--muted);cursor:pointer;font-family:inherit;transition:all .15s;font-weight:500}
+.tab.on{background:linear-gradient(135deg,var(--purple),var(--blue));border-color:transparent;color:white;font-weight:700}
+/* CARDS */
+.grid{display:flex;flex-direction:column;gap:14px}
+.card{background:var(--card);border:1px solid var(--border);border-radius:16px;overflow:hidden;animation:fadeUp .3s ease both;transition:transform .22s,box-shadow .22s;cursor:pointer}
+.card:hover{transform:translateY(-3px);box-shadow:0 16px 40px rgba(109,40,217,.2)}
+@keyframes fadeUp{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+.card-thumb{width:100%;height:160px;object-fit:cover;background:linear-gradient(135deg,#1e1b4b,#0f172a);display:flex;align-items:center;justify-content:center;font-size:48px;border-bottom:1px solid var(--border)}
+.card-body{padding:14px}
+.card-meta{display:flex;gap:6px;align-items:center;margin-bottom:8px;flex-wrap:wrap}
+.badge{padding:2px 9px;border-radius:20px;font-size:10px;font-weight:700;border:1px solid}
+.badge.high{background:rgba(255,71,87,.12);color:#ff6b7a;border-color:rgba(255,71,87,.3)}
+.badge.medium{background:rgba(251,191,36,.1);color:#fbbf24;border-color:rgba(251,191,36,.3)}
+.badge.low{background:rgba(34,197,94,.1);color:#4ade80;border-color:rgba(34,197,94,.3)}
+.badge.free{background:rgba(34,197,94,.12);color:#4ade80;border-color:rgba(34,197,94,.3)}
+.badge.paid{background:rgba(251,191,36,.1);color:#fbbf24;border-color:rgba(251,191,36,.3)}
+.badge.both{background:rgba(124,58,237,.12);color:#a78bfa;border-color:rgba(124,58,237,.3)}
+.msrc{color:var(--dim);font-size:11px}
+.mdate{color:var(--dim);font-size:11px}
+.card-title{font-size:15px;font-weight:700;line-height:1.4;color:#f1f5f9;margin-bottom:8px;font-family:'Syne',sans-serif}
+.card-sum{color:var(--muted);font-size:13px;line-height:1.6;margin-bottom:12px}
+.card-acts{display:flex;gap:6px;flex-wrap:wrap;align-items:center}
+.abtn{padding:5px 11px;border-radius:8px;font-size:11px;cursor:pointer;font-family:inherit;border:1px solid rgba(255,255,255,.1);background:rgba(255,255,255,.06);color:var(--muted);transition:all .15s}
+.abtn:hover{opacity:.8}
+.abtn.spk{background:rgba(59,130,246,.25);border-color:#3b82f6;color:#93c5fd}
+.abtn.svd{background:rgba(124,58,237,.25);border-color:var(--purple);color:#c4b5fd}
+.rlink{margin-left:auto;font-size:11px;color:#6366f1;text-decoration:none;font-weight:500}
+/* MODAL */
+.modal-bg{position:fixed;inset:0;background:rgba(0,0,0,.85);z-index:200;display:none;align-items:flex-end;justify-content:center}
+.modal-bg.open{display:flex}
+.modal{background:#0d1117;border:1px solid rgba(124,58,237,.3);border-radius:20px 20px 0 0;width:100%;max-width:860px;max-height:88vh;overflow-y:auto;padding:24px 18px 40px}
+.modal-close{float:right;background:rgba(255,255,255,.08);border:none;color:var(--text);width:32px;height:32px;border-radius:50%;cursor:pointer;font-size:16px;margin-bottom:16px}
+.modal-title{font-size:18px;font-weight:800;color:#f1f5f9;margin-bottom:12px;font-family:'Syne',sans-serif;line-height:1.4}
+.modal-body{color:var(--muted);font-size:14px;line-height:1.7}
+.modal-link{display:inline-block;margin-top:16px;background:linear-gradient(135deg,var(--purple),var(--blue));color:white;padding:10px 20px;border-radius:10px;text-decoration:none;font-weight:700;font-size:13px}
+/* COMPARISON TABLE */
+.comp-table{width:100%;border-collapse:collapse;margin:12px 0;font-size:12px}
+.comp-table th{background:rgba(124,58,237,.2);color:var(--accent);padding:8px 10px;text-align:left;border-bottom:1px solid rgba(255,255,255,.1)}
+.comp-table td{padding:8px 10px;border-bottom:1px solid rgba(255,255,255,.05);color:var(--muted);vertical-align:top}
+.comp-table tr:hover td{background:rgba(255,255,255,.03)}
+.win{color:#4ade80;font-weight:700}
+/* STAR RATING */
+.stars{color:#fbbf24;font-size:13px}
+/* EMPTY */
+.empty{text-align:center;padding:60px 0;color:#374151}
+/* SETTINGS MODAL */
+.settings-modal{background:#0d1117;border:1px solid rgba(124,58,237,.3);border-radius:20px 20px 0 0;width:100%;max-width:860px;padding:24px 18px 40px}
+.credit-box{background:linear-gradient(135deg,rgba(124,58,237,.15),rgba(37,99,235,.15));border:1px solid rgba(124,58,237,.3);border-radius:14px;padding:20px;text-align:center;margin-top:16px}
+.credit-name{font-size:22px;font-weight:800;color:#f1f5f9;font-family:'Syne',sans-serif}
+.credit-title{font-size:13px;color:var(--accent);margin-top:4px}
+.credit-desc{font-size:12px;color:var(--dim);margin-top:8px;line-height:1.6}
+footer{text-align:center;padding:32px 0 14px;color:#1f2937;font-size:11px}
+</style>
+</head>
+<body>
 
-interface NewsItem {
-  id: number;
-  title: string;
-  summary: string;
-  fullText: string;
-  category: string;
-  time: string;
-  source: string;
-  image: string;
+<header>
+<div class="hi">
+<div class="hr1">
+  <div class="logo" onclick="showTab('home')">
+    <div class="li">🧠</div>
+    <div>
+      <div class="ln">Ai Oro Tech News</div>
+      <div class="ls">● June 2026 · Dhugaa</div>
+    </div>
+  </div>
+  <div class="lscroll" id="lbar"></div>
+</div>
+<div class="hr2" id="navbar"></div>
+</div>
+</header>
+
+<main>
+<!-- SEARCH -->
+<div id="search-area" style="display:none">
+  <div class="srow">
+    <input class="si" id="sinp" placeholder="Barbaadi..." onkeydown="if(event.key==='Enter')doSearch()"/>
+    <button class="sbtn" onclick="doSearch()">🔍</button>
+    <button class="xbtn" id="xbtn" onclick="clearSearch()">✕</button>
+  </div>
+</div>
+
+<div class="grid" id="grid"></div>
+<div class="empty" id="empty" style="display:none">
+  <div style="font-size:38px;margin-bottom:10px">🔍</div>
+  <div id="empty-msg">Waan barbaadde hin argamne</div>
+</div>
+<footer>Ai Oro Tech News · by Musab Anes · June 2026</footer>
+</main>
+
+<!-- DETAIL MODAL -->
+<div class="modal-bg" id="modal-bg" onclick="closeModal(event)">
+  <div class="modal" id="modal">
+    <button class="modal-close" onclick="closeModalDirect()">✕</button>
+    <div id="modal-content"></div>
+  </div>
+</div>
+
+<script>
+// ══════════════════════════════════════
+// DATA
+// ══════════════════════════════════════
+const TABS = [
+  {id:"news",    label:"📰 Oduu",      icon:"📰"},
+  {id:"models",  label:"🤖 AI Models", icon:"🤖"},
+  {id:"video",   label:"🎬 Video AI",  icon:"🎬"},
+  {id:"image",   label:"🖼️ Suuraa AI", icon:"🖼️"},
+  {id:"text",    label:"✍️ Barreeffama",icon:"✍️"},
+  {id:"saved",   label:"🔖 Kuusamee", icon:"🔖"},
+  {id:"settings",label:"⚙️ Settings",  icon:"⚙️"},
+];
+
+const LANGS=[
+  {code:"om",label:"🇪🇹 Oromoo"},{code:"am",label:"🇪🇹 Amharic"},
+  {code:"ti",label:"🇪🇹 Tigrinya"},{code:"so",label:"🇸🇴 Somali"},
+  {code:"ar",label:"🇸🇦 Arabic"},{code:"en",label:"🇬🇧 English"},
+];
+
+// NEWS DATA
+const NEWS = [
+  {id:"n1",type:"news",icon:"🤖",impact:"high",source:"BuildFastWithAI",date:"Jun 8, 2026",
+   title:"Claude AI Miliyoona 824 Fayyadamaa Gahe — Guddina %306",
+   summary:"Gabaasa haaraa irratti Claude AI fayyadamaan ji'a tokkotti miliyoona 824 gahe. Kuni guddina %306 kutaa tokko keessatti. Ameerikaa keessatti Claude fayyadamaan %12.5 qaba — ChatGPT fi Gemini boodaatii.",
+   detail:"Claude AI Anthropic tiin hojjetame ji'a tokkotti fayyadamaan miliyoona 824 gahe — kuni jalqabuma irraa guddina %306 dha. Biyya Ameerikaa keessatti fayyadamaan %12.5 gahee jira. ChatGPT gabaa %54.7, Gemini %27.4 qaba. Claude hojii barreeffamaa fi qorannoo cimaadha.",
+   url:"https://www.buildfastwithai.com/blogs/ai-news-today-june-8-2026"},
+  {id:"n2",type:"news",icon:"📱",impact:"high",source:"TechCrunch",date:"Jun 6, 2026",
+   title:"Apple WWDC 2026 — Siri Haaraa Gemini Tiin Hojjeta, Claude iPhone Irratti",
+   summary:"Apple WWDC 2026 irratti Siri haaraan Google Gemini fayyadama. iOS 27 haaraa bahe. Claude AI iyyuu iPhone irratti filanno ta'e — Apple AI cimsuuf dhaabbilee heddu waliin hojjeta.",
+   detail:"Apple WWDC 2026 irratti wantootni hedduu ibsamaniiru. Siri Google Gemini tiin haaroomfame — dubbisuu, gaaffilee deebisuu fi hojii hedduu hojjeta. iOS 27 bahe. Claude AI iPhone irratti appii ta'e. iPad OS haaraa iyyuu bahe.",
+   url:"https://techcrunch.com"},
+  {id:"n3",type:"news",icon:"💼",impact:"high",source:"AI News",date:"Jun 5, 2026",
+   title:"Meta Hojjettoota 8,000 Baase — AI Irratti Guutumaan Xiyyeeffate",
+   summary:"Meta hojjettoota 8,000 baase — kun %10 hojjettoota mara. Hojjettoonni kuma 7 gara garee AI hojjetu jijjiiraman. Meta AI irratti invastimantii guddaa taasisaa jira.",
+   detail:"Meta (Facebook, Instagram, WhatsApp abbaa) hojjettoota 8,000 baase. Hojjettoonni kuma 7 gara garee AI hojjetu jijjiiraman. Bakka banaa 6,000 AI irratti hojjetu barbaadama. Mark Zuckerberg AI gara fuula duraatti xiyyeeffannoo guddaa siifneera.",
+   url:"https://www.crescendo.ai/news/latest-ai-news-and-updates"},
+  {id:"n4",type:"news",icon:"🚗",impact:"high",source:"Medium",date:"Jun 4, 2026",
+   title:"Uber Robotaxi Spain Keessatti Jalqabe — Namni Fuul-Dura Hin Jiru",
+   summary:"Uber robotaxi Spain keessatti hojii eegale. Konkolaanni AI qofaan oofama — namni fuul-dura hin jiru. Europe keessatti jalqaba guddaa dha.",
+   detail:"Uber Spain keessatti robotaxi hojii jalqabe. Konkolaanni GPS fi AI fayyadamuun deetii oofama. Fayyadamaan app irraa gaafata, konkolaanni ofumaan dhufa. Gatiin konkolaata Uber duraanii waliin walfakkaata. Madrid fi Barcelona keessatti jalqabame.",
+   url:"https://medium.com/@davidakpovi/ai-news-week-of-june-1-to-june-7-2026-7957940c805a"},
+  {id:"n5",type:"news",icon:"💻",impact:"high",source:"Euronews",date:"Jun 3, 2026",
+   title:"Microsoft AI Models Dhunfaa Baase — OpenAI fi Anthropic Dorgoma",
+   summary:"Microsoft model AI dhunfaa isaa baase. OpenAI fi Anthropic waliin dorgomuu jalqabe. Azure AI haaraa, Copilot fooyyaa'e jira.",
+   detail:"Microsoft AI model dhunfaa isaatii hojjechuu jalqabe. OpenAI irraa gara bilisummaa deemaa jira. Azure irratti model haaraa deploy gochuu danda'ama. Copilot hojii Microsoft 365 keessa cimee galere. Dhaabbilee hedduu fayyadamuu jalqabaniiru.",
+   url:"https://www.crescendo.ai/news/latest-ai-news-and-updates"},
+  {id:"n6",type:"news",icon:"🔒",impact:"high",source:"BuildFastWithAI",date:"Jun 8, 2026",
+   title:"EU AI Act — Seera AI Hojii Jalqabuu Dhiyaatee Jira",
+   summary:"Seera EU AI Act hojii jalqabuuf yeroon dhiyaatee jira. Dhaabbatoonni AI seera haaraaf qophaa'uu qabu. Kuni biyya Europe keessatti AI fayyadamuu mala jijjiira.",
+   detail:"EU AI Act seera addunyaa AI irratti jalqabaa dha. Dhaabbatoonni AI system 'high risk' jedhamtu adda baasuu qabu. Yoo seera kana cabsan adabbiin hanga €30 million ykn %6 galii idil-addunyaa. Seera kun namoonni AI fayyadamuuf mirga beeku qabu jedha.",
+   url:"https://www.buildfastwithai.com/blogs/ai-news-today-june-8-2026"},
+];
+
+// AI MODELS COMPARISON
+const MODELS = [
+  {id:"m1",type:"models",icon:"🟣",impact:"high",source:"Gurusup.com",date:"May 2026",
+   title:"Claude 4.6 vs ChatGPT GPT-5.4 vs Gemini 3.1 — Eenyu Caala? 2026",
+   summary:"AI models sadii cimoo 2026: Claude barreeffama fi qorannoo dheeraa irratti caala. ChatGPT ecosystem fi integration irratti caala. Gemini multimodal fi Google waliin hojii irratti caala. Hundi $20/ji'a.",
+   detail:`<h3 style="color:#f1f5f9;margin-bottom:12px">🏆 AI Models Madaala 2026</h3>
+<table class="comp-table">
+<tr><th>Sadarkaa</th><th>Model</th><th>Cimina</th><th>Gatii/Ji'a</th></tr>
+<tr><td>1️⃣</td><td><strong style="color:#c4b5fd">Claude 4.6</strong></td><td class="win">Barreeffama, Qorannoo dheeraa, Koodii</td><td>$20 Pro</td></tr>
+<tr><td>2️⃣</td><td><strong style="color:#74d7f7">ChatGPT GPT-5.4</strong></td><td>Ecosystem bal'aa, Integration hedduu</td><td>$20 Plus</td></tr>
+<tr><td>3️⃣</td><td><strong style="color:#4ade80">Gemini 3.1</strong></td><td>Multimodal, Google waliin hojii</td><td>$19.99</td></tr>
+<tr><td>4️⃣</td><td><strong style="color:#fb923c">Grok 3</strong></td><td>X/Twitter, Oduu yeroo ammaa</td><td>$30 SuperGrok</td></tr>
+</table>
+<p style="margin-top:12px;font-size:13px;color:#94a3b8">✅ Hundi bilisaan fayyadamuu danda'ama — garuu daangaa qaba. Claude barreeffama dheeraa fi qorannoo irratti #1. ChatGPT ecosystem bal'inaan #1. Gemini Google fayyadamtootaaf #1.</p>`,
+   url:"https://gurusup.com/blog/claude-vs-chatgpt-vs-gemini"},
+  {id:"m2",type:"models",icon:"💰",impact:"medium",source:"FindSkill.ai",date:"May 2026",
+   title:"AI Subscription Gatii 2026 — Maal Kaffaluu Barbaachisa?",
+   summary:"Claude Pro, ChatGPT Plus, Gemini AI Pro — hundi $20/ji'a. Garuu adda. ChatGPT Go $8/ji'a bilisaa caalu dha. Claude Max $100-200/ji'a cimaa caalaaf.",
+   detail:`<h3 style="color:#f1f5f9;margin-bottom:12px">💰 Gatii Madaala 2026</h3>
+<table class="comp-table">
+<tr><th>App</th><th>Bilisaa</th><th>Gatii Giddugaleessa</th><th>Olka'aa</th></tr>
+<tr><td>Claude</td><td>✅ Daangaan</td><td>$20/ji'a (Pro)</td><td>$100-200/ji'a (Max)</td></tr>
+<tr><td>ChatGPT</td><td>✅ Daangaan</td><td>$8-20/ji'a</td><td>$200/ji'a (Pro)</td></tr>
+<tr><td>Gemini</td><td>✅ Daangaan</td><td>$19.99/ji'a</td><td>$249.99/ji'a (Ultra)</td></tr>
+<tr><td>Grok</td><td>✅ Xiqqoo</td><td>$30/ji'a (SuperGrok)</td><td>$300/ji'a (Heavy)</td></tr>
+<tr><td>Perplexity</td><td>✅ Daangaan</td><td>$20/ji'a (Pro)</td><td>—</td></tr>
+</table>
+<p style="margin-top:12px;font-size:13px;color:#94a3b8">💡 Hundi $20/ji'a walitti dhiyaatu — adda ta'uun fayyadama kee irratti hundaa'a. Barreeffama: Claude. Hundi: ChatGPT. Google fayyadamtuu: Gemini.</p>`,
+   url:"https://findskill.ai/blog/ai-pricing-comparison-2026/"},
+];
+
+// VIDEO AI
+const VIDEO = [
+  {id:"v1",type:"video",icon:"🎬",impact:"high",source:"AtlasCloud.ai",date:"Jun 2026",
+   title:"Seedance 2.0 — Sadarkaa 1ffaa Video AI 2026 (ELO 1,215)",
+   summary:"Seedance 2.0 ByteDance irraa sadarkaa 1ffaa video AI 2026 — ELO 1,215. Daqiiqaa 30 keessatti video 10-second tolcha. Bilisaa fi gatii laafaan jira.",
+   detail:`<h3 style="color:#f1f5f9;margin-bottom:12px">🎬 Video AI Sadarkaa 10 — 2026</h3>
+<table class="comp-table">
+<tr><th>#</th><th>App</th><th>Cimina</th><th>Bilisaa?</th><th>Gatii</th></tr>
+<tr><td>1</td><td><strong class="win">Seedance 2.0</strong></td><td>Saffisa, Character</td><td>✅ Jira</td><td>Bilisaa+Kaffalti</td></tr>
+<tr><td>2</td><td><strong>Kling AI 3.0</strong></td><td>Physics cinematic</td><td>✅ Jira</td><td>Bilisaa+Kaffalti</td></tr>
+<tr><td>3</td><td><strong>Google Veo 3</strong></td><td>Qulqullina olka'aa</td><td>✅ AI Studio</td><td>Bilisaa xiqqoo</td></tr>
+<tr><td>4</td><td><strong>Sora 2</strong></td><td>OpenAI, Cinematic</td><td>❌ Kaffalti</td><td>$20+/ji'a</td></tr>
+<tr><td>5</td><td><strong>Runway ML</strong></td><td>Edit+Generate</td><td>✅ Xiqqoo</td><td>$12/ji'a+</td></tr>
+<tr><td>6</td><td><strong>Pika 2.0</strong></td><td>Social media</td><td>✅ Jira</td><td>Bilisaa+$8/ji'a</td></tr>
+<tr><td>7</td><td><strong>HeyGen</strong></td><td>Avatar, Presentation</td><td>✅ 3/ji'a</td><td>$24/ji'a+</td></tr>
+<tr><td>8</td><td><strong>CapCut AI</strong></td><td>Edit+Generate</td><td>✅ 4K bilisaa</td><td>$9.99/ji'a Pro</td></tr>
+<tr><td>9</td><td><strong>Luma Dream</strong></td><td>Cinematic, 30/ji'a</td><td>✅ 30/ji'a</td><td>Bilisaa+Kaffalti</td></tr>
+<tr><td>10</td><td><strong>WAN 2.2</strong></td><td>Open source, Bilisaa</td><td>✅ Guutumaan</td><td>💯 Bilisaa</td></tr>
+</table>
+<p style="margin-top:12px;font-size:13px;color:#94a3b8">💡 Kling bilisaadhan jalqabi — saffisaan yaali. Google Veo 3 qulqullina olka'aaf. WAN 2.2 guutumaan bilisaa ta'uuf.</p>`,
+   url:"https://www.atlascloud.ai/blog/guides/10-best-ai-video-generators-free-no-subscription-in-2026"},
+];
+
+// IMAGE AI
+const IMAGES = [
+  {id:"i1",type:"image",icon:"🖼️",impact:"high",source:"Gradually.ai",date:"2026",
+   title:"AI Suuraa Uumuu — Midjourney v7 vs DALL-E vs Stable Diffusion 2026",
+   summary:"Midjourney v7 aartii fi qulqullina irratti sadarkaa 1ffaa. GPT Image 2 (DALL-E itti aanaa) prompt sirriitti hubata. Stable Diffusion bilisaa guutuun hojjeta. Adobe Firefly hojii daldalaa irratti gaarii.",
+   detail:`<h3 style="color:#f1f5f9;margin-bottom:12px">🖼️ Suuraa AI Sadarkaa 2026</h3>
+<table class="comp-table">
+<tr><th>#</th><th>App</th><th>Cimina</th><th>Bilisaa?</th><th>Gatii</th></tr>
+<tr><td>1</td><td><strong class="win">Midjourney v7</strong></td><td>Aartii, Qulqullina</td><td>❌</td><td>$10/ji'a+</td></tr>
+<tr><td>2</td><td><strong>GPT Image 2</strong></td><td>Prompt sirrii</td><td>✅ ChatGPT keessa</td><td>$20/ji'a</td></tr>
+<tr><td>3</td><td><strong>Stable Diffusion</strong></td><td>Bilisaa, Open source</td><td>💯 Guutumaan</td><td>Bilisaa</td></tr>
+<tr><td>4</td><td><strong>FLUX</strong></td><td>Photorealism</td><td>✅ Xiqqoo</td><td>$0.06/suuraa</td></tr>
+<tr><td>5</td><td><strong>Adobe Firefly</strong></td><td>Hojii daldalaa</td><td>✅ Xiqqoo</td><td>$10/ji'a+</td></tr>
+<tr><td>6</td><td><strong>Ideogram V3</strong></td><td>Text suuraa keessa</td><td>✅ Jira</td><td>$7/ji'a+</td></tr>
+<tr><td>7</td><td><strong>Leonardo AI</strong></td><td>Aartii, Game</td><td>✅ 150 token/guyyaa</td><td>Bilisaa+Kaffalti</td></tr>
+<tr><td>8</td><td><strong>Imagen 4</strong></td><td>Google, Cinematic</td><td>✅ AI Studio</td><td>Bilisaa xiqqoo</td></tr>
+<tr><td>9</td><td><strong>Bing Image</strong></td><td>DALL-E tiin, Bilisaa</td><td>💯 Guutumaan</td><td>Bilisaa</td></tr>
+<tr><td>10</td><td><strong>ImagineArt</strong></td><td>Suite guutuu</td><td>✅ 50/guyyaa</td><td>$10/ji'a+</td></tr>
+</table>
+<p style="margin-top:12px;font-size:13px;color:#94a3b8">💡 Bilisaan jalqabuuf: Bing Image (DALL-E) ykn Leonardo AI. Qulqullina olka'aaf: Midjourney. Guutumaan bilisaadhaaf: Stable Diffusion.</p>`,
+   url:"https://www.gradually.ai/en/ai-image-models/"},
+];
+
+// TEXT AI
+const TEXT_AI = [
+  {id:"t1",type:"text",icon:"✍️",impact:"high",source:"Various",date:"2026",
+   title:"AI Barreeffama Gara Afaan Hundaatti Jijjiirun — Tools Gaarii 10",
+   summary:"DeepL afaan 30+ salphaan jijjiira — AI tiin. Google Translate bilisaa fi bal'aa dha. Claude fi ChatGPT context hubachuun afaan jijjiiru. Afaan Oromoo fi Amharic DeepL caalaa Google Translate gaariidha.",
+   detail:`<h3 style="color:#f1f5f9;margin-bottom:12px">✍️ AI Barreeffama fi Jijjiirraa Tools 2026</h3>
+<table class="comp-table">
+<tr><th>#</th><th>App</th><th>Cimina</th><th>Bilisaa?</th><th>Gatii</th></tr>
+<tr><td>1</td><td><strong class="win">DeepL</strong></td><td>Afaan 30+, Sirrii</td><td>✅ Xiqqoo</td><td>$8.74/ji'a+</td></tr>
+<tr><td>2</td><td><strong>Google Translate</strong></td><td>Afaan 100+, Bilisaa</td><td>💯 Bilisaa</td><td>Bilisaa</td></tr>
+<tr><td>3</td><td><strong>Claude</strong></td><td>Context, Dheeraa</td><td>✅ Daangaan</td><td>$20/ji'a Pro</td></tr>
+<tr><td>4</td><td><strong>ChatGPT</strong></td><td>Afaan hedduu, Cimaa</td><td>✅ Daangaan</td><td>$20/ji'a Plus</td></tr>
+<tr><td>5</td><td><strong>Grammarly</strong></td><td>English sirreessuu</td><td>✅ Bilisaa</td><td>$12/ji'a Pro</td></tr>
+<tr><td>6</td><td><strong>Jasper AI</strong></td><td>Marketing barreeffama</td><td>❌</td><td>$39/ji'a+</td></tr>
+<tr><td>7</td><td><strong>Copy.ai</strong></td><td>Marketing, Social</td><td>✅ Xiqqoo</td><td>$36/ji'a+</td></tr>
+<tr><td>8</td><td><strong>Writesonic</strong></td><td>SEO, Blog</td><td>✅ Xiqqoo</td><td>$12/ji'a+</td></tr>
+<tr><td>9</td><td><strong>Notion AI</strong></td><td>Note taking+AI</td><td>✅ Notion keessa</td><td>$10/ji'a+</td></tr>
+<tr><td>10</td><td><strong>Microsoft Copilot</strong></td><td>Office, Word, Excel</td><td>✅ Bilisaa</td><td>$20/ji'a Pro</td></tr>
+</table>
+<p style="margin-top:12px;font-size:13px;color:#94a3b8">💡 Afaan Oromoo fi Ethiopian languages: Google Translate bilisaadhan gaarii. Barreeffama dheeraa jijjiiruuf Claude ykn ChatGPT fayyadami.</p>`,
+   url:"https://deepl.com"},
+];
+
+// ══════════════════════════════════════
+// STATE
+// ══════════════════════════════════════
+let lang="om", tab="news", sq="", sv=[], spkId=null;
+try{sv=JSON.parse(localStorage.getItem("aoro_sv")||"[]");}catch{}
+
+const ALL_DATA = {
+  news: NEWS,
+  models: MODELS,
+  video: VIDEO,
+  image: IMAGES,
+  text: TEXT_AI,
+};
+
+// ══════════════════════════════════════
+// BUILD UI
+// ══════════════════════════════════════
+function init(){buildLang();buildNav();showTab("news");}
+
+function buildLang(){
+  document.getElementById("lbar").innerHTML = LANGS.map(l=>
+    `<button class="lbtn ${l.code===lang?"on":""}" onclick="setLang('${l.code}')">${l.label}</button>`
+  ).join("");
 }
 
-export default function AiOroTechNews() {
-  const [searchTerm, setSearchTerm] = useState('');
-  const [selectedCategory, setSelectedCategory] = useState('Hunda');
-  const [selectedNews, setSelectedNews] = useState<NewsItem | null>(null);
+function setLang(c){
+  lang=c;
+  document.body.classList.toggle("rtl",c==="ar");
+  buildLang();
+  render();
+}
 
-  const newsData: NewsItem[] = [
-    {
-      id: 1,
-      title: "Claude AI Miliyoona 824 Fayyadamamaa Gahe — Guddina %306",
-      summary: "Gabaasa haaraa irratti Claude AI fayyadamamaan ji’a tokkootti miliyoona 824 gahe.",
-      fullText: "Claude AI fayyadamamaan ji’a tokko keessatti miliyoona 824 gahe. Kuni guddina %306 kutaa tokko keessatti argame.",
-      category: "AI Models",
-      time: "Saa’aa 3 dura",
-      source: "TechCrunch",
-      image: "https://picsum.photos/id/1015/600/400"
-    },
-    {
-      id: 2,
-      title: "Apple WWDC 2026 — Siri Haaraa Gemini Tiin Hojjeta",
-      summary: "Apple WWDC 2026 irratti Siri haaraan Google Gemini fayyadama.",
-      fullText: "Apple WWDC 2026 irratti Siri haaraan Google Gemini fayyadama. iOS 27 kan haaraa bakka iPhone 11 duraa fudhata.",
-      category: "AI Haaraa",
-      time: "Guyyaa 1 dura",
-      source: "The Verge",
-      image: "https://picsum.photos/id/106/600/400"
-    },
-    {
-      id: 3,
-      title: "Gemini 2.5 Pro: Afaan Oromoo irratti Cimina Olaanaa",
-      summary: "Google Gemini haaraan Afaan Oromoo fi Amharic irratti baay’ee cimuu mul’ise.",
-      fullText: "Google Gemini 2.5 Pro Afaan Oromoo irratti cimina olaanaa agarsiise.",
-      category: "AI Models",
-      time: "Saa’aa 6 dura",
-      source: "Google Blog",
-      image: "https://picsum.photos/id/201/600/400"
-    }
-  ];
+function buildNav(){
+  document.getElementById("navbar").innerHTML = TABS.map(t=>
+    `<button class="nbtn ${t.id===tab?"on":""}" onclick="showTab('${t.id}')">${t.label}</button>`
+  ).join("");
+}
 
-  const filteredNews = newsData.filter(item => {
-    const matchesSearch = item.title.toLowerCase().includes(searchTerm.toLowerCase()) || 
-                         item.summary.toLowerCase().includes(searchTerm.toLowerCase());
-    const matchesCategory = selectedCategory === 'Hunda' || item.category === selectedCategory;
-    return matchesSearch && matchesCategory;
-  });
+function showTab(t){
+  tab=t;
+  sq="";
+  document.getElementById("sinp").value="";
+  document.getElementById("xbtn").style.display="none";
+  buildNav();
+  // show/hide search
+  const showSearch = ["news","models","video","image","text","saved"].includes(t);
+  document.getElementById("search-area").style.display = showSearch ? "block" : "none";
+  if(t==="settings"){renderSettings();}
+  else{render();}
+}
 
-  const categories = ['Hunda', 'AI Models', 'AI Tools', 'Research', 'Ethiopia AI'];
+// ══════════════════════════════════════
+// RENDER
+// ══════════════════════════════════════
+function render(){
+  const grid = document.getElementById("grid");
+  const empty = document.getElementById("empty");
 
-  const speak = (text: string) => {
-    if ('speechSynthesis' in window) {
-      const utterance = new SpeechSynthesisUtterance(text);
-      utterance.lang = 'om-ET';
-      window.speechSynthesis.speak(utterance);
-    } else {
-      alert('Text-to-Speech hin deeggaramne.');
-    }
-  };
+  let data;
+  if(tab==="saved") data=sv;
+  else data=ALL_DATA[tab]||[];
 
-  return (
-    <div className="min-h-screen bg-zinc-950 text-white">
-      <header className="sticky top-0 bg-zinc-900 border-b border-zinc-800 z-50">
-        <div className="max-w-6xl mx-auto px-4 py-5">
-          <div className="flex items-center justify-between">
-            <div>
-              <h1 className="text-3xl font-bold flex items-center gap-3">
-                🤖 Ai Oro Tech News
-              </h1>
-              <p className="text-zinc-500">Oduu AI fi Tech Haaraa • June 2026</p>
-            </div>
-            <div className="text-sm text-purple-400">by Musab Anes</div>
-          </div>
+  // search filter
+  if(sq){
+    const q=sq.toLowerCase();
+    data=data.filter(d=>d.title.toLowerCase().includes(q)||d.summary.toLowerCase().includes(q));
+  }
+
+  if(data.length===0){
+    grid.innerHTML="";
+    empty.style.display="block";
+    document.getElementById("empty-msg").textContent = tab==="saved" ? "Kuusameen hin jiru 🔖" : "Waan barbaadde hin argamne";
+    return;
+  }
+  empty.style.display="none";
+
+  grid.innerHTML = data.map((d,i)=>{
+    const isSv = sv.find(x=>x.id===d.id);
+    const isSpk = spkId===d.id;
+    return `
+    <div class="card" style="animation-delay:${Math.min(i,6)*.06}s" onclick="openDetail('${d.id}')">
+      <div class="card-thumb" style="background:linear-gradient(135deg,${thumbBg(d.icon)})">
+        <span style="font-size:52px">${d.icon}</span>
+      </div>
+      <div class="card-body">
+        <div class="card-meta">
+          <span class="badge ${d.impact}">${impE(d.impact)}</span>
+          <span class="msrc">📰 ${esc(d.source)}</span>
+          <span class="mdate">📅 ${d.date}</span>
         </div>
-
-        <div className="max-w-6xl mx-auto px-4 pb-4">
-          <input
-            type="text"
-            placeholder="Oduu barbaadi... (Claude, Gemini, etc.)"
-            className="w-full bg-zinc-900 border border-zinc-700 rounded-2xl px-6 py-4 text-lg"
-            value={searchTerm}
-            onChange={(e) => setSearchTerm(e.target.value)}
-          />
-        </div>
-
-        <div className="max-w-6xl mx-auto px-4 pb-4 flex gap-2 overflow-x-auto">
-          {categories.map(cat => (
-            <button
-              key={cat}
-              onClick={() => setSelectedCategory(cat)}
-              className={`px-6 py-2.5 rounded-full whitespace-nowrap text-sm ${selectedCategory === cat ? 'bg-purple-600 text-white' : 'bg-zinc-800 hover:bg-zinc-700'}`}
-            >
-              {cat}
-            </button>
-          ))}
-        </div>
-      </header>
-
-      <div className="max-w-6xl mx-auto px-4 py-8">
-        <div className="grid gap-6 md:grid-cols-2">
-          {filteredNews.map((news) => (
-            <div 
-              key={news.id} 
-              className="bg-zinc-900 border border-zinc-800 rounded-3xl overflow-hidden cursor-pointer hover:border-purple-500 transition-all"
-              onClick={() => setSelectedNews(news)}
-            >
-              <img src={news.image} alt={news.title} className="w-full h-48 object-cover" />
-              <div className="p-6">
-                <div className="flex justify-between text-xs mb-3">
-                  <span className="text-purple-400">{news.category}</span>
-                  <span className="text-zinc-500">{news.time} • {news.source}</span>
-                </div>
-                <h2 className="text-xl font-semibold mb-3 line-clamp-2">{news.title}</h2>
-                <p className="text-zinc-400 text-sm line-clamp-3 mb-5">{news.summary}</p>
-                
-                <div className="flex gap-3">
-                  <button 
-                    onClick={(e) => { e.stopPropagation(); speak(news.summary); }}
-                    className="flex-1 bg-purple-600 hover:bg-purple-700 py-3 rounded-2xl text-sm flex items-center justify-center gap-2"
-                  >
-                    🔊 Dhaggeeffadhu
-                  </button>
-                  <button className="flex-1 border border-zinc-700 hover:bg-zinc-800 py-3 rounded-2xl text-sm">
-                    Caalaatti →
-                  </button>
-                </div>
-              </div>
-            </div>
-          ))}
+        <h3 class="card-title">${esc(d.title)}</h3>
+        <p class="card-sum">${esc(d.summary.slice(0,130))}...</p>
+        <div class="card-acts" onclick="event.stopPropagation()">
+          <button class="abtn ${isSpk?"spk":""}" onclick="spk('${d.id}','${escA(d.title+'. '+d.summary)}')">${isSpk?"⏹ Dhaabi":"🔊 Dhaggeeffadhu"}</button>
+          <button class="abtn ${isSv?"svd":""}" onclick="toggleSv('${d.id}')">${isSv?"🔖 Kuusamee":"📌 Kuusi"}</button>
+          ${d.url?`<a class="rlink" href="${escA(d.url)}" target="_blank" rel="noopener" onclick="event.stopPropagation()">Caalaatti →</a>`:""}
         </div>
       </div>
-
-      {selectedNews && (
-        <div className="fixed inset-0 bg-black/90 z-50 flex items-center justify-center p-4" onClick={() => setSelectedNews(null)}>
-          <div className="bg-zinc-900 max-w-3xl w-full rounded-3xl max-h-[90vh] overflow-auto" onClick={e => e.stopPropagation()}>
-            <img src={selectedNews.image} className="w-full h-64 object-cover rounded-t-3xl" />
-            <div className="p-8">
-              <h1 className="text-3xl font-bold mb-4">{selectedNews.title}</h1>
-              <p className="text-zinc-400 mb-8">{selectedNews.fullText}</p>
-              <button 
-                onClick={() => speak(selectedNews.fullText)}
-                className="bg-purple-600 px-8 py-4 rounded-2xl flex items-center gap-3 text-lg"
-              >
-                🔊 Guutuu Dhaggeeffadhu
-              </button>
-            </div>
-          </div>
-        </div>
-      )}
-    </div>
-  );
+    </div>`;
+  }).join("");
 }
+
+function renderSettings(){
+  document.getElementById("grid").innerHTML=`
+  <div style="padding:8px 0">
+    <div style="font-size:16px;font-weight:700;color:#f1f5f9;margin-bottom:16px;font-family:'Syne',sans-serif">⚙️ Settings & Credit</div>
+
+    <div style="background:rgba(255,255,255,.04);border:1px solid var(--border);border-radius:14px;padding:16px;margin-bottom:12px">
+      <div style="font-size:13px;font-weight:700;color:var(--accent);margin-bottom:8px">🌍 Afaan Filadhu</div>
+      <div style="display:flex;gap:6px;flex-wrap:wrap">
+        ${LANGS.map(l=>`<button class="lbtn ${l.code===lang?"on":""}" onclick="setLang('${l.code}');renderSettings()">${l.label}</button>`).join("")}
+      </div>
+    </div>
+
+    <div style="background:rgba(255,255,255,.04);border:1px solid var(--border);border-radius:14px;padding:16px;margin-bottom:12px">
+      <div style="font-size:13px;font-weight:700;color:var(--accent);margin-bottom:8px">📊 Waa'ee App</div>
+      <div style="font-size:13px;color:var(--muted);line-height:1.7">
+        📅 Haaromfame: June 10, 2026<br>
+        📰 Oduu: ${NEWS.length} oduu dhugaa<br>
+        🤖 AI Models: ${MODELS.length} madaala<br>
+        🎬 Video AI: ${VIDEO.length} tarree<br>
+        🖼️ Suuraa AI: ${IMAGES.length} tarree<br>
+        ✍️ Barreeffama: ${TEXT_AI.length} tarree<br>
+        🔖 Kuusamee: ${sv.length} oduu
+      </div>
+    </div>
+
+    <div class="credit-box">
+      <div style="font-size:40px;margin-bottom:8px">👨‍💻</div>
+      <div class="credit-name">Musab Anes</div>
+      <div class="credit-title">Uumaa fi Abbaa — Ai Oro Tech News</div>
+      <div class="credit-desc">
+        App kana Musab Anes uume — Afaan Oromoo fi Ethiopia keessatti AI odeeffannoo namootaaf kennuuf.<br><br>
+        🧠 Powered by Claude AI · Anthropic<br>
+        🌐 Deployed on Cloudflare Workers<br>
+        📅 Version 2.0 — June 2026
+      </div>
+    </div>
+
+    <div style="margin-top:12px;text-align:center">
+      <button onclick="sv=[];try{localStorage.removeItem('aoro_sv');}catch{}render();showTab('news')" style="background:rgba(255,71,87,.1);border:1px solid rgba(255,71,87,.3);color:#ff6b7a;padding:8px 16px;border-radius:9px;cursor:pointer;font-family:inherit;font-size:12px">
+        🗑️ Kuusamee Hunda Haqi
+      </button>
+    </div>
+  </div>`;
+  document.getElementById("empty").style.display="none";
+}
+
+// ══════════════════════════════════════
+// DETAIL MODAL
+// ══════════════════════════════════════
+function openDetail(id){
+  const all=[...NEWS,...MODELS,...VIDEO,...IMAGES,...TEXT_AI,...sv];
+  const d=all.find(x=>x.id===id);
+  if(!d)return;
+  document.getElementById("modal-content").innerHTML=`
+    <div style="font-size:36px;text-align:center;margin-bottom:12px">${d.icon}</div>
+    <div class="modal-title">${esc(d.title)}</div>
+    <div style="display:flex;gap:6px;margin-bottom:14px;flex-wrap:wrap">
+      <span class="badge ${d.impact}">${impE(d.impact)}</span>
+      <span class="msrc">📰 ${esc(d.source)}</span>
+      <span class="mdate">📅 ${d.date}</span>
+    </div>
+    <div class="modal-body">${d.detail||esc(d.summary)}</div>
+    ${d.url?`<a class="modal-link" href="${escA(d.url)}" target="_blank" rel="noopener">🔗 Madda Ilaali →</a>`:""}
+  `;
+  document.getElementById("modal-bg").classList.add("open");
+  document.body.style.overflow="hidden";
+}
+function closeModal(e){if(e.target===document.getElementById("modal-bg"))closeModalDirect();}
+function closeModalDirect(){
+  document.getElementById("modal-bg").classList.remove("open");
+  document.body.style.overflow="";
+}
+
+// ══════════════════════════════════════
+// ACTIONS
+// ══════════════════════════════════════
+function doSearch(){
+  sq=document.getElementById("sinp").value.trim();
+  document.getElementById("xbtn").style.display=sq?"flex":"none";
+  render();
+}
+function clearSearch(){
+  sq="";
+  document.getElementById("sinp").value="";
+  document.getElementById("xbtn").style.display="none";
+  render();
+}
+function toggleSv(id){
+  const all=[...NEWS,...MODELS,...VIDEO,...IMAGES,...TEXT_AI];
+  const d=all.find(x=>x.id===id);
+  if(!d)return;
+  const idx=sv.findIndex(x=>x.id===id);
+  if(idx>=0)sv.splice(idx,1);else sv.unshift(d);
+  try{localStorage.setItem("aoro_sv",JSON.stringify(sv));}catch{}
+  buildNav();render();
+}
+function spk(id,text){
+  window.speechSynthesis.cancel();
+  if(spkId===id){spkId=null;render();return;}
+  const u=new SpeechSynthesisUtterance(text);
+  const vs=window.speechSynthesis.getVoices();
+  const lm={om:"en",am:"am",ti:"ti",so:"so",ar:"ar",en:"en"};
+  const v=vs.find(x=>x.lang.startsWith(lm[lang]||"en"))||vs[0];
+  if(v)u.voice=v;u.rate=0.9;
+  u.onend=u.onerror=()=>{spkId=null;render();};
+  window.speechSynthesis.speak(u);
+  spkId=id;render();
+}
+
+// ══════════════════════════════════════
+// HELPERS
+// ══════════════════════════════════════
+function esc(s){return(s||"").replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;");}
+function escA(s){return(s||"").replace(/'/g,"&#39;").replace(/\n/g," ").slice(0,200);}
+function impE(i){return{high:"🔥 HIGH",medium:"⚡ MED",low:"✅ LOW"}[i]||"📌";}
+function thumbBg(icon){
+  const map={"🤖":"#1e1b4b,#312e81","📱":"#0f172a,#1e3a5f","💼":"#1a0a2e,#2d1b69","🚗":"#0a1628,#1e3a5f","💻":"#0f1923,#1a3a2e","🔒":"#1a0000,#3a0000","🎬":"#0a0a1e,#1a0a3e","🖼️":"#0a1e0a,#0a2e1a","✍️":"#1e0a0a,#2e1a0a","🟣":"#1e0a3e,#0a1e3e","💰":"#1e1a00,#2e2a00"};
+  return map[icon]||"#06060f,#0d1117";
+}
+
+window.onload=init;
+</script>
+</body>
+</html>

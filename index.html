@@ -21,8 +21,8 @@ export default function AiOroTechNews() {
     {
       id: 1,
       title: "Claude AI Miliyoona 824 Fayyadamamaa Gahe — Guddina %306",
-      summary: "Gabaasa haaraa irratti Claude AI fayyadamamaan ji’a tokkootti miliyoona 824 gahe...",
-      fullText: "Claude AI fayyadamamaan ji’a tokko keessatti miliyoona 824 gahe. Kuni guddina %306 kutaa tokko keessatti...",
+      summary: "Gabaasa haaraa irratti Claude AI fayyadamamaan ji’a tokkootti miliyoona 824 gahe.",
+      fullText: "Claude AI fayyadamamaan ji’a tokko keessatti miliyoona 824 gahe. Kuni guddina %306 kutaa tokko keessatti argame.",
       category: "AI Models",
       time: "Saa’aa 3 dura",
       source: "TechCrunch",
@@ -31,8 +31,8 @@ export default function AiOroTechNews() {
     {
       id: 2,
       title: "Apple WWDC 2026 — Siri Haaraa Gemini Tiin Hojjeta",
-      summary: "Apple WWDC 2026 irratti Siri haaraan Google Gemini fayyadama...",
-      fullText: "Apple WWDC 2026 irratti Siri haaraan Google Gemini fayyadama. iOS 27 kan haaraa bakka iPhone 11 duraa fudhata...",
+      summary: "Apple WWDC 2026 irratti Siri haaraan Google Gemini fayyadama.",
+      fullText: "Apple WWDC 2026 irratti Siri haaraan Google Gemini fayyadama. iOS 27 kan haaraa bakka iPhone 11 duraa fudhata.",
       category: "AI Haaraa",
       time: "Guyyaa 1 dura",
       source: "The Verge",
@@ -42,7 +42,7 @@ export default function AiOroTechNews() {
       id: 3,
       title: "Gemini 2.5 Pro: Afaan Oromoo irratti Cimina Olaanaa",
       summary: "Google Gemini haaraan Afaan Oromoo fi Amharic irratti baay’ee cimuu mul’ise.",
-      fullText: "Full detail...",
+      fullText: "Google Gemini 2.5 Pro Afaan Oromoo irratti cimina olaanaa agarsiise.",
       category: "AI Models",
       time: "Saa’aa 6 dura",
       source: "Google Blog",
@@ -60,9 +60,13 @@ export default function AiOroTechNews() {
   const categories = ['Hunda', 'AI Models', 'AI Tools', 'Research', 'Ethiopia AI'];
 
   const speak = (text: string) => {
-    const utterance = new SpeechSynthesisUtterance(text);
-    utterance.lang = 'om-ET';
-    window.speechSynthesis.speak(utterance);
+    if ('speechSynthesis' in window) {
+      const utterance = new SpeechSynthesisUtterance(text);
+      utterance.lang = 'om-ET';
+      window.speechSynthesis.speak(utterance);
+    } else {
+      alert('Text-to-Speech hin deeggaramne.');
+    }
   };
 
   return (
@@ -137,7 +141,6 @@ export default function AiOroTechNews() {
         </div>
       </div>
 
-      {/* Detail Modal */}
       {selectedNews && (
         <div className="fixed inset-0 bg-black/90 z-50 flex items-center justify-center p-4" onClick={() => setSelectedNews(null)}>
           <div className="bg-zinc-900 max-w-3xl w-full rounded-3xl max-h-[90vh] overflow-auto" onClick={e => e.stopPropagation()}>

@@ -25,11 +25,6 @@ header{background:rgba(6,6,16,.94);backdrop-filter:blur(20px);border-bottom:1px 
 .hr2{display:flex;align-items:center;gap:8px;padding-bottom:10px}
 .nbtn{padding:6px 14px;border-radius:9px;font-size:13px;border:1px solid rgba(255,255,255,.1);background:rgba(255,255,255,.05);color:var(--muted);cursor:pointer;font-family:inherit}
 .nbtn.on{background:linear-gradient(135deg,var(--purple),var(--blue));border-color:transparent;color:white;font-weight:700}
-.ato{display:flex;align-items:center;gap:6px;margin-left:auto;cursor:pointer}
-.att{width:34px;height:18px;border-radius:9px;background:#374151;position:relative;transition:background .2s}
-.att.on{background:#16a34a}
-.ath{position:absolute;top:2px;left:2px;width:14px;height:14px;border-radius:7px;background:white;transition:left .2s}
-.att.on .ath{left:18px}
 main{max-width:860px;margin:0 auto;padding:16px 12px}
 .srow{display:flex;gap:8px;margin-bottom:14px}
 .si{flex:1;background:rgba(255,255,255,.05);border:1px solid rgba(109,40,217,.3);border-radius:11px;padding:10px 14px;color:var(--text);font-size:14px;font-family:inherit;outline:none}
@@ -42,23 +37,20 @@ main{max-width:860px;margin:0 auto;padding:16px 12px}
 .cbtn.on{background:linear-gradient(135deg,var(--purple),var(--blue));border-color:transparent;color:white;font-weight:600}
 .strow{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px}
 .stxt{font-size:11px;color:#4f46e5}
-.rbtn{background:transparent;border:1px solid rgba(109,40,217,.35);color:var(--accent);padding:4px 11px;border-radius:7px;font-size:11px;cursor:pointer;font-family:inherit}
-.loading{text-align:center;padding:50px 20px;display:none}
-.spin{display:inline-block;font-size:34px;animation:spin 1s linear infinite;margin-bottom:14px}
-@keyframes spin{to{transform:rotate(360deg)}}
-.ptxt{color:var(--accent);font-size:14px;animation:pulse 1.6s ease infinite}
-@keyframes pulse{0%,100%{opacity:1}50%{opacity:.4}}
-.ebox{background:rgba(255,71,87,.08);border:1px solid rgba(255,71,87,.22);border-radius:12px;padding:16px;color:#fca5a5;font-size:13px;text-align:center;display:none}
-.ertbtn{display:block;margin:10px auto 0;background:rgba(255,255,255,.08);border:none;color:var(--text);padding:6px 14px;border-radius:8px;font-size:12px;cursor:pointer;font-family:inherit}
 .emptyb{text-align:center;padding:60px 0;color:#374151;display:none}
 .arts{display:flex;flex-direction:column;gap:12px}
 .card{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:16px 14px;position:relative;overflow:hidden;animation:fadeUp .3s ease both;transition:transform .22s,box-shadow .22s}
 .card:hover{transform:translateY(-3px);box-shadow:0 14px 36px rgba(109,40,217,.2)}
 @keyframes fadeUp{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:none}}
 .cacc{position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,var(--purple),transparent)}
+.cacc.high{background:linear-gradient(90deg,#ff4757,transparent)}
+.cacc.medium{background:linear-gradient(90deg,#fbbf24,transparent)}
 .cmeta{display:flex;gap:6px;align-items:center;margin-bottom:8px;flex-wrap:wrap}
 .badge{background:rgba(124,58,237,.15);color:var(--accent);border:1px solid rgba(124,58,237,.3);padding:1px 8px;border-radius:20px;font-size:10px;font-weight:700}
+.badge.high{background:rgba(255,71,87,.12);color:#ff6b7a;border-color:rgba(255,71,87,.3)}
+.badge.medium{background:rgba(251,191,36,.1);color:#fbbf24;border-color:rgba(251,191,36,.3)}
 .mtime{color:var(--dim);font-size:11px}
+.msrc{color:var(--dim);font-size:11px}
 .ctitle{font-size:14px;font-weight:700;line-height:1.45;color:#f1f5f9;margin-bottom:8px}
 .csum{color:var(--muted);font-size:13px;line-height:1.65;margin-bottom:10px}
 .cacts{display:flex;gap:6px;flex-wrap:wrap;align-items:center}
@@ -66,6 +58,7 @@ main{max-width:860px;margin:0 auto;padding:16px 12px}
 .abtn.spk{background:rgba(59,130,246,.25);border-color:#3b82f6;color:#93c5fd}
 .abtn.svd{background:rgba(124,58,237,.25);border-color:var(--purple);color:#c4b5fd}
 .rlink{margin-left:auto;font-size:11px;color:#6366f1;text-decoration:none}
+.dateinfo{font-size:10px;color:#4f46e5;text-align:center;padding:8px;margin-bottom:8px;background:rgba(124,58,237,.08);border-radius:8px}
 footer{text-align:center;padding:32px 0 14px;color:#1f2937;font-size:11px}
 </style>
 </head>
@@ -77,7 +70,7 @@ footer{text-align:center;padding:32px 0 14px;color:#1f2937;font-size:11px}
     <div class="li">🧠</div>
     <div>
       <div class="ln">Ai Oro Tech News</div>
-      <div class="ls" id="lst" style="color:#22c55e">● Live</div>
+      <div class="ls" style="color:#22c55e">● June 2026 · Dhugaa</div>
     </div>
   </div>
   <div class="lscroll" id="lbar"></div>
@@ -85,10 +78,6 @@ footer{text-align:center;padding:32px 0 14px;color:#1f2937;font-size:11px}
 <div class="hr2">
   <button class="nbtn on" id="nh" onclick="switchView('home')">🏠 Mana</button>
   <button class="nbtn" id="ns" onclick="switchView('saved')">🔖 Kuusamee (0)</button>
-  <div class="ato" onclick="toggleAuto()">
-    <span style="font-size:11px;color:#22c55e" id="albl">⏰ Auto</span>
-    <div class="att on" id="atrk"><div class="ath"></div></div>
-  </div>
 </div>
 </div>
 </header>
@@ -102,53 +91,62 @@ footer{text-align:center;padding:32px 0 14px;color:#1f2937;font-size:11px}
   <div class="cscroll" id="cbar"></div>
   <div class="strow">
     <span class="stxt" id="stxt"></span>
-    <button class="rbtn" onclick="fetchNews(true)">🔄 Haaroomsi</button>
   </div>
 </div>
 <div id="sview" style="display:none"><div style="padding:8px 0 16px;color:var(--muted);font-size:14px">🔖 Kuusamee</div></div>
-<div class="loading" id="ldiv"><div class="spin">⚙️</div><div class="ptxt" id="ltxt">Sassaabuuf...</div></div>
-<div class="ebox" id="ebox"><span id="emsg"></span><button class="ertbtn" onclick="fetchNews(true)">🔄 Ammas Yaali</button></div>
+<div class="dateinfo">📅 Oduu Dhugaa — June 2026 · Haaromfame: June 10, 2026</div>
 <div class="emptyb" id="empb"><div style="font-size:38px;margin-bottom:10px">🔍</div><div id="empmsg">Oduu hin argamne</div></div>
 <div class="arts" id="ac"></div>
-<footer>Ai Oro Tech News · TechCrunch · Verge · Wired · VentureBeat · Hacker News</footer>
+<footer>Ai Oro Tech News · Oduu Dhugaa June 2026 · TechCrunch · Verge · Wired · VentureBeat</footer>
 </main>
 <script>
-// Use allorigins.win — works on Cloudflare Workers
-function rssUrl(feed){
-  return 'https://api.allorigins.win/get?url='+encodeURIComponent('https://api.rss2json.com/v1/api.json?rss_url='+encodeURIComponent(feed)+'&count=20');
-}
-const RSS=[
-  {name:"TechCrunch",feed:"https://techcrunch.com/feed/"},
-  {name:"The Verge",feed:"https://www.theverge.com/rss/index.xml"},
-  {name:"Wired",feed:"https://www.wired.com/feed/rss"},
-  {name:"VentureBeat",feed:"https://venturebeat.com/feed/"},
-  {name:"Hacker News",feed:"https://news.ycombinator.com/rss"},
+const NEWS = [
+  {id:"1",title:"Claude AI Miliyoona 824 Fayyadamaa Gahe — Guddina %306",summary:"Gabaasa haaraa irratti Claude AI fayyadamaan ji'a tokkotti miliyoona 824 gahe. Kuni guddina %306 kutaa tokko keessatti. Ameerikaa keessatti Claude fayyadamaan %12.5 qaba.",source:"BuildFastWithAI",url:"https://www.buildfastwithai.com/blogs/ai-news-today-june-8-2026",date:"Jun 8, 2026",cat:"ai",impact:"high"},
+  {id:"2",title:"Apple WWDC 2026 — Siri Haaraa Gemini Tiin Hojjeta",summary:"Apple WWDC 2026 irratti Siri haaraan Google Gemini fayyadama. iOS 27 kan haaraa bakka iPhone 11 duraa fudhata. Claude AI iyyuu iPhone irratti filanno ta'e.",source:"TechCrunch",url:"https://techcrunch.com",date:"Jun 6, 2026",cat:"ai",impact:"high"},
+  {id:"3",title:"ChatGPT Gabaa %54.7 Qaba — Garuu Hir'achaa Jira",summary:"ChatGPT gabaa AI chatbot keessatti %54.7 qaba, garuu bara 2025 keessatti %76.5 ture. Google Gemini %27.4 tiin lammaffaa dha. Gabaan AI heddu hirmaattota argachaa jira.",source:"Momentic",url:"https://www.buildfastwithai.com/blogs/ai-news-today-june-8-2026",date:"Jun 8, 2026",cat:"ai",impact:"high"},
+  {id:"4",title:"Meta Hojjettoota 8,000 Baase — AI Irratti Xiyyeeffate",summary:"Meta hojjettoota 8,000 baase — kun %10 hojjettoota mara. Hojjettoonni kuma 7 gara garee AI hojjetu jijjiiraman. Bakka banaa 6,000 AI irratti hojjetu barbaadama.",source:"AI News",url:"https://www.crescendo.ai/news/latest-ai-news-and-updates",date:"Jun 5, 2026",cat:"startups",impact:"high"},
+  {id:"5",title:"Microsoft AI Models Haaraa Baase — OpenAI fi Anthropic Dorgoma",summary:"Microsoft model AI dhunfaa isaa baase — OpenAI fi Anthropic waliin dorgomuu jalqabe. Euronews gabaasa akka Microsoft server isaa irratti AI model hojjechuu jalqabe.",source:"Euronews",url:"https://www.crescendo.ai/news/latest-ai-news-and-updates",date:"Jun 3, 2026",cat:"ai",impact:"high"},
+  {id:"6",title:"Google Gemini 3.5 Flash — Saffisa 3x Guddaa, Gatii Olka'e",summary:"Google Gemini 3.5 Flash haaraan saffisa 3x caalaa bahe. Garuu gatiin iyyuu 3x ol ka'e. Claude fi GPT-5.5 waliin madaalame — hundumtuu cimaa ta'aniiru.",source:"Memeburn",url:"https://www.buildfastwithai.com/blogs/ai-news-today-june-8-2026",date:"Jun 7, 2026",cat:"ai",impact:"high"},
+  {id:"7",title:"Uber Robotaxi Ispeen Keessatti Hojii Jalqabe",summary:"Uber robotaxi Spain keessatti hojii eegale. Namni fuul-dura hin jiru — AI qofatu konkolaata oofaa jira. Kun Europe keessatti jalqaba guddaa dha.",source:"Medium",url:"https://medium.com/@davidakpovi/ai-news-week-of-june-1-to-june-7-2026-7957940c805a",date:"Jun 4, 2026",cat:"ai",impact:"high"},
+  {id:"8",title:"BYD Robot Namaa Tolchuu Jalqabe — Tesla Waliin Dorgoma",summary:"BYD — konkolaataa elektrikii beekamaa — robot namaa tolchuu jalqabe. Tesla Optimus waliin dorgoma jalqabe. Biyya China robot irratti invastimantii guddaa taasisaa jira.",source:"Medium",url:"https://medium.com/@davidakpovi/ai-news-week-of-june-1-to-june-7-2026-7957940c805a",date:"Jun 3, 2026",cat:"research",impact:"high"},
+  {id:"9",title:"AI Ilkaan Dhibee Ija Argitu — Biyya Faransaay",summary:"Startup Faransaay Zenkolab AI fayyadamuun suura ija irraa dhibee ija argita. Dhibeen dura argamuu danda'a. Biyyoota addaa doctor hin qabne keessatti gargaarsa guddaa ta'a.",source:"Medium",url:"https://medium.com/@davidakpovi/ai-news-week-of-june-1-to-june-7-2026-7957940c805a",date:"Jun 2, 2026",cat:"research",impact:"medium"},
+  {id:"10",title:"OpenAI Barsiisa — Biyyoota Hedduu Daa'imman Miliyoona 1 Gahe",summary:"OpenAI barnootaa Jordan keessatti daa'imman miliyoona 1 ol, Estonia keessatti 20,000 ol gahe. Codex Mobile haaromfame. Barnootaa AI biyyoota baadiyaa keessatti bal'isuuf hojjetamaa jira.",source:"OpenAI Education",url:"https://www.crescendo.ai/news/latest-ai-news-and-updates",date:"Jun 5, 2026",cat:"learn",impact:"medium"},
+  {id:"11",title:"Maryland Mootummaa AI Innovation Lab Banate",summary:"Mootummaa Maryland AI Innovation Lab banate. Ejensiin mootummaa AI salphaan yaaluu danda'a. Tajaajila AI red-teaming jalqabaa ta'e mootummaaf kennameera.",source:"AI News",url:"https://www.crescendo.ai/news/latest-ai-news-and-updates",date:"Jun 4, 2026",cat:"security",impact:"medium"},
+  {id:"12",title:"Gemini fi Claude fi GPT-5.5 Madaala — Eenyu Cimaa?",summary:"Madaala haaraan Gemini 3.5 Flash, Claude, fi GPT-5.5 madaale. Hundumtuu cimaadha garuu gatii fi saffisni garaagaraa dha. Fayyadamaan barbaachisaa isaatitti haa filatu.",source:"Memeburn",url:"https://www.buildfastwithai.com/blogs/ai-news-today-june-8-2026",date:"Jun 7, 2026",cat:"ai",impact:"medium"},
+  {id:"13",title:"AI Hojii Dhiyeessuu — Dorgomaa Caalu Barbaachisa",summary:"Gabaasa haaraa AI hojii heddu fudhachaa jira jedha. Garuu AI sirriitti hojjechuuf namni dorgommii addaa qabaachuu barbaachisa. Barnoota AI yeroo ammaa murteessaa dha.",source:"StartupEdition",url:"https://blog.mean.ceo/latest-ai-developments-news-june-2026/",date:"Jun 4, 2026",cat:"learn",impact:"medium"},
+  {id:"14",title:"Agentic AI — Chat Irraa Gara Hojii Xumuruu",summary:"AI yeroo ammaa chat irraa hojii dhugaa xumuruu danda'utti jijjiiramaa jira. Coding, legal, research, fi daldalaa keessatti AI hojii of danda'uun hojjeta. Kuni jijjiirama guddaa dha.",source:"StartupEdition",url:"https://blog.mean.ceo/latest-ai-developments-news-june-2026/",date:"Jun 4, 2026",cat:"ai",impact:"high"},
+  {id:"15",title:"Microsoft Build 2026 — Waan AI Hunda Ibse",summary:"Microsoft Build 2026 irratti AI announcement hedduu bahe. Azure AI haaraa, Copilot fooyyaa'e, fi model haaraa argamaniiru. Ijaaraa guddinaan Microsoft AI irratti invastimantii guddaa taasise.",source:"A Guide to Cloud",url:"https://www.crescendo.ai/news/latest-ai-news-and-updates",date:"Jun 2, 2026",cat:"tools",impact:"high"},
+  {id:"16",title:"Quantum AI — Yeroo Dhiyoo Miti Garuu Hordofuu Barbaachisa",summary:"IBM quantum AI irratti hojjechaa jira. Garuu startup quantum AI irratti ijaaruun yeroo ammaa gaarii miti. Hanga waggaa 10 guttuu namoonni beekumsa qaban qofaaf ta'a.",source:"StartupEdition",url:"https://blog.mean.ceo/latest-ai-breakthroughs-news-june-2026/",date:"Jun 4, 2026",cat:"research",impact:"low"},
+  {id:"17",title:"NAVER HyperCLOVA X — Korea AI Model Cimaa",summary:"NAVER Korea AI model haaraa HyperCLOVA X ijaaruuf Cloudflare waliin hojjeta. Data magaalaa Seoul fayyadamuun model haaraa tolchuu barbaadu. Korea irraa AI guddina jira.",source:"AI News",url:"https://www.crescendo.ai/news/latest-ai-news-and-updates",date:"Jun 3, 2026",cat:"ai",impact:"medium"},
+  {id:"18",title:"AI Healthcare — Gargaarsa Dhugaa Kennamaa Jira",summary:"AI healthcare keessatti gargaarsa dhugaa kennaa jira. UC San Diego qorannoo cimaa AI fayyadamuun hojjete. Dhibee arguu, yaaluu, fi dursanii to'achuuf AI fayyadamaa jira.",source:"TechCrunch",url:"https://techcrunch.com",date:"Jun 6, 2026",cat:"research",impact:"medium"},
+  {id:"19",title:"EU AI Act — Seera AI Hojii Jalqabuu Dhiyaatee Jira",summary:"Seera EU AI Act hojii jalqabuuf yeroon dhiyaatee jira. Dhaabbatoonni AI law haaraaf qophaa'uu qabu. Kuni biyya Europe keessatti AI fayyadamuu mala jijjiira.",source:"BuildFastWithAI",url:"https://www.buildfastwithai.com/blogs/ai-news-today-june-8-2026",date:"Jun 8, 2026",cat:"security",impact:"high"},
+  {id:"20",title:"Google Wallet — Eenyummaa Dijitaalaa Biyyoota Hedduu Keessatti",summary:"Google Wallet eenyummaa dijitaalaa biyyoota hedduu keessatti fayyadamuu jalqabe. ID kaardii fi paaspoortii phone irratti kaa'uu danda'ama. Kuni nageenya fi saffisa fida.",source:"Medium",url:"https://medium.com/@davidakpovi/ai-news-week-of-june-1-to-june-7-2026-7957940c805a",date:"Jun 2, 2026",cat:"tools",impact:"medium"},
 ];
+
 const CATS=[
   {id:"all",label:"🌐 Hunda",kw:[]},
-  {id:"ai",label:"🤖 AI Haaraa",kw:["ai","gpt","gemini","claude","openai","llm","model"]},
-  {id:"tools",label:"🛠️ AI Tools",kw:["tool","app","launch","product","feature","release"]},
-  {id:"learn",label:"📚 Barsiisa",kw:["learn","tutorial","course","education","guide","programming"]},
-  {id:"research",label:"🔬 Qorannoo",kw:["research","paper","study","breakthrough","science"]},
-  {id:"startup",label:"🚀 Startups",kw:["startup","funding","raise","million","billion","invest"]},
-  {id:"security",label:"🔐 Nageenyaa",kw:["security","hack","cyber","breach","privacy","threat"]},
+  {id:"ai",label:"🤖 AI Haaraa",kw:["ai"]},
+  {id:"tools",label:"🛠️ AI Tools",kw:["tools"]},
+  {id:"learn",label:"📚 Barsiisa",kw:["learn"]},
+  {id:"research",label:"🔬 Qorannoo",kw:["research"]},
+  {id:"startups",label:"🚀 Startups",kw:["startups"]},
+  {id:"security",label:"🔐 Nageenyaa",kw:["security"]},
 ];
 const LANGS=[
   {code:"om",label:"🇪🇹 Oromoo"},{code:"am",label:"🇪🇹 Amharic"},{code:"ti",label:"🇪🇹 Tigrinya"},
   {code:"so",label:"🇸🇴 Somali"},{code:"ar",label:"🇸🇦 Arabic"},{code:"en",label:"🇬🇧 English"},
 ];
 const UI={
-  om:{home:"🏠 Mana",saved:"🔖 Kuusamee",search:"Oduu barbaadi...",noSaved:"Oduu kuusamee hin jiru",listen:"🔊 Dhaggeeffadhu",stop:"⏹ Dhaabi",share:"📤 Share",more:"Caalaatti →",noResult:"Oduu hin argamne",loading:"Oduu sassaabuuf..."},
-  am:{home:"🏠 ቤት",saved:"🔖 ተቀምጧል",search:"ዜና ፈልግ...",noSaved:"ዜና አልተቀመጠም",listen:"🔊 አዳምጥ",stop:"⏹ አቁም",share:"📤 አጋራ",more:"ተጨማሪ →",noResult:"ዜና አልተገኘም",loading:"ዜናዎችን እየሰበሰቡ..."},
-  ti:{home:"🏠 ገዛ",saved:"🔖 ዝተዓቀበ",search:"ዜና ድለዩ...",noSaved:"ዝተዓቀበ ዜና የለን",listen:"🔊 ስምዑ",stop:"⏹ ኣቋርጽ",share:"📤 ካፍል",more:"ተወሳኺ →",noResult:"ዜና ኣይተረኽበን",loading:"ዜናታት ይእከቡ..."},
-  so:{home:"🏠 Guriga",saved:"🔖 La kaydiyay",search:"Wararka raadi...",noSaved:"Waran la kaydiyay ma jiro",listen:"🔊 Dhageyso",stop:"⏹ Jooji",share:"📤 La wadaag",more:"Wax badan →",noResult:"Waran lama helin",loading:"Wararka uruurineynaa..."},
-  ar:{home:"🏠 الرئيسية",saved:"🔖 المحفوظة",search:"ابحث...",noSaved:"لا توجد مقالات",listen:"🔊 استمع",stop:"⏹ إيقاف",share:"📤 مشاركة",more:"اقرأ ←",noResult:"لم يتم العثور على أخبار",loading:"جمع الأخبار..."},
-  en:{home:"🏠 Home",saved:"🔖 Saved",search:"Search news...",noSaved:"No saved articles",listen:"🔊 Listen",stop:"⏹ Stop",share:"📤 Share",more:"Read more →",noResult:"No articles found",loading:"Gathering news..."},
+  om:{home:"🏠 Mana",saved:"🔖 Kuusamee",search:"Oduu barbaadi...",noSaved:"Oduu kuusamee hin jiru",listen:"🔊 Dhaggeeffadhu",stop:"⏹ Dhaabi",share:"📤 Share",more:"Caalaatti →",noResult:"Oduu hin argamne"},
+  am:{home:"🏠 ቤት",saved:"🔖 ተቀምጧል",search:"ዜና ፈልግ...",noSaved:"ዜና አልተቀመጠም",listen:"🔊 አዳምጥ",stop:"⏹ አቁም",share:"📤 አጋራ",more:"ተጨማሪ →",noResult:"ዜና አልተገኘም"},
+  ti:{home:"🏠 ገዛ",saved:"🔖 ዝተዓቀበ",search:"ዜና ድለዩ...",noSaved:"ዝተዓቀበ ዜና የለን",listen:"🔊 ስምዑ",stop:"⏹ ኣቋርጽ",share:"📤 ካፍል",more:"ተወሳኺ →",noResult:"ዜና ኣይተረኽበን"},
+  so:{home:"🏠 Guriga",saved:"🔖 La kaydiyay",search:"Wararka raadi...",noSaved:"Waran la kaydiyay ma jiro",listen:"🔊 Dhageyso",stop:"⏹ Jooji",share:"📤 La wadaag",more:"Wax badan →",noResult:"Waran lama helin"},
+  ar:{home:"🏠 الرئيسية",saved:"🔖 المحفوظة",search:"ابحث...",noSaved:"لا توجد مقالات",listen:"🔊 استمع",stop:"⏹ إيقاف",share:"📤 مشاركة",more:"اقرأ ←",noResult:"لم يتم العثور على أخبار"},
+  en:{home:"🏠 Home",saved:"🔖 Saved",search:"Search news...",noSaved:"No saved articles",listen:"🔊 Listen",stop:"⏹ Stop",share:"📤 Share",more:"Read more →",noResult:"No articles found"},
 };
-let lang="om",cat="all",all=[],sv=[],sq="",view="home",spkId=null,auto=true,timer=null,exp=null,lu=null;
-const C={};
+let lang="om",cat="all",sv=[],sq="",view="home",spkId=null,exp=null;
 try{sv=JSON.parse(localStorage.getItem("aoro")||"[]");}catch{}
-function init(){buildL();buildC();fetchNews(false);}
+function init(){buildL();buildC();render();}
 function buildL(){document.getElementById("lbar").innerHTML=LANGS.map(l=>`<button class="lbtn ${l.code===lang?"on":""}" onclick="setL('${l.code}')">${l.label}</button>`).join("");}
 function setL(c){lang=c;document.body.classList.toggle("rtl",c==="ar");buildL();updUI();render();}
 function buildC(){document.getElementById("cbar").innerHTML=CATS.map(c=>`<button class="cbtn ${c.id===cat?"on":""}" onclick="setCat('${c.id}')">${c.label}</button>`).join("");}
@@ -158,92 +156,52 @@ function updUI(){
   document.getElementById("sinp").placeholder=t.search;
   document.getElementById("nh").textContent=t.home;
   document.getElementById("ns").textContent=t.saved+" ("+sv.length+")";
-  document.getElementById("ltxt").textContent=t.loading;
   document.getElementById("empmsg").textContent=t.noResult;
-}
-async function fetchNews(force=false){
-  if(!force&&C.news&&Date.now()-C.news.ts<1800000){all=C.news.data;lu=new Date(C.news.ts);render();return;}
-  showLoad(true);showErr(false);
-  try{
-    const ps=RSS.map(src=>
-      fetch(rssUrl(src.feed),{signal:AbortSignal.timeout(12000)})
-        .then(r=>r.json())
-        .then(d=>{
-          const inner=JSON.parse(d.contents);
-          return(inner.items||[]).map(i=>({
-            id:i.guid||i.link||Math.random().toString(36),
-            title:i.title||"",
-            summary:strip(i.description||i.content||"").slice(0,300),
-            source:src.name,url:i.link||null,
-            date:i.pubDate||"",timeAgo:ago(i.pubDate),
-          }));
-        })
-        .catch(()=>[])
-    );
-    const res=await Promise.all(ps);
-    const arts=res.flat().filter(a=>a.title&&a.title.length>5).sort((a,b)=>new Date(b.date)-new Date(a.date));
-    if(arts.length===0)throw new Error("empty");
-    all=arts;C.news={data:arts,ts:Date.now()};lu=new Date();
-    showLoad(false);render();
-    if(auto){clearInterval(timer);timer=setInterval(()=>fetchNews(true),3600000);}
-  }catch(e){
-    showLoad(false);showErr(true,"Oduu hin argamne — Internet ilaaladhu");
-  }
 }
 function render(){
   const t=UI[lang]||UI.en;
   const cont=document.getElementById("ac");
   const emp=document.getElementById("empb");
-  let list=view==="saved"?sv:all;
-  if(view==="home"&&cat!=="all"){
-    const c=CATS.find(x=>x.id===cat);
-    if(c&&c.kw.length)list=list.filter(a=>{const tx=(a.title+" "+a.summary).toLowerCase();return c.kw.some(k=>tx.includes(k));});
-  }
+  let list=view==="saved"?sv:NEWS;
+  if(view==="home"&&cat!=="all"){list=list.filter(a=>a.cat===cat);}
   if(sq){const q=sq.toLowerCase();list=list.filter(a=>a.title.toLowerCase().includes(q)||a.summary.toLowerCase().includes(q));}
-  if(lu&&view==="home")document.getElementById("stxt").textContent="⏱ "+lu.toLocaleTimeString()+" · "+list.length+" oduu"+(sq?' · "'+sq+'"':"");
-  document.getElementById("lst").style.color=all.length>0?"#22c55e":"#f59e0b";
-  document.getElementById("lst").textContent=all.length>0?"● Live · "+all.length+" Oduu":"● Sassaabuuf...";
-  if(list.length===0){cont.innerHTML="";emp.style.display="block";
-    if(view==="saved"){emp.querySelector("div").textContent="🔖";document.getElementById("empmsg").textContent=t.noSaved;}
-    return;}
+  document.getElementById("stxt").textContent="📰 "+list.length+" oduu · June 2026"+(sq?' · "'+sq+'"':"");
+  if(list.length===0){cont.innerHTML="";emp.style.display="block";return;}
   emp.style.display="none";
-  cont.innerHTML=list.slice(0,40).map((a,i)=>{
+  cont.innerHTML=list.map((a,i)=>{
     const isSv=sv.find(x=>x.id===a.id);
     const isSpk=spkId===a.id;
     const isExp=exp===a.id;
+    const imp=a.impact||"low";
     return`<div class="card" style="animation-delay:${Math.min(i,8)*.05}s">
-      <div class="cacc"></div>
+      <div class="cacc ${imp}"></div>
       <div class="cmeta">
-        <span class="badge">📰 ${esc(a.source)}</span>
-        ${a.timeAgo?`<span class="mtime">🕐 ${a.timeAgo}</span>`:""}
+        <span class="badge ${imp}">${imp==="high"?"🔥":imp==="medium"?"⚡":"✅"} ${imp.toUpperCase()}</span>
+        <span class="msrc">📰 ${esc(a.source)}</span>
+        <span class="mtime">📅 ${a.date}</span>
       </div>
       <h3 class="ctitle">${esc(a.title)}</h3>
-      <p class="csum">${esc(isExp?a.summary:a.summary.slice(0,130)+(a.summary.length>130?"...":""))}</p>
+      <p class="csum">${esc(isExp?a.summary:a.summary.slice(0,120)+(a.summary.length>120?"...":""))}</p>
       <div class="cacts">
-        ${a.summary.length>130?`<button class="abtn" onclick="toggleExp('${a.id}')">${isExp?"▲":"▼ "+t.more}</button>`:""}
-        <button class="abtn ${isSpk?"spk":""}" onclick="spk('${a.id}','${escA(a.title+". "+a.summary)}')">${isSpk?t.stop:t.listen}</button>
+        ${a.summary.length>120?`<button class="abtn" onclick="toggleExp('${a.id}')">${isExp?"▲ Dhoksi":"▼ Caalaatti"}</button>`:""}
+        <button class="abtn ${isSpk?"spk":""}" onclick="spk('${a.id}','${escA(a.title+". "+a.summary)}')">${isSpk?(UI[lang]||UI.en).stop:(UI[lang]||UI.en).listen}</button>
         <button class="abtn ${isSv?"svd":""}" onclick="toggleSv('${a.id}')">${isSv?"🔖":"📌"}</button>
-        ${a.url?`<button class="abtn" onclick="shareA('${escA(a.url)}','${escA(a.title)}')">${t.share}</button>`:""}
-        ${a.url?`<a class="rlink" href="${escA(a.url)}" target="_blank" rel="noopener">${t.more}</a>`:""}
+        ${a.url?`<button class="abtn" onclick="shareA('${escA(a.url)}','${escA(a.title)}')">${(UI[lang]||UI.en).share}</button>`:""}
+        ${a.url?`<a class="rlink" href="${escA(a.url)}" target="_blank" rel="noopener">${(UI[lang]||UI.en).more}</a>`:""}
       </div>
     </div>`;
   }).join("");
-  document.getElementById("ns").textContent=t.saved+" ("+sv.length+")";
+  document.getElementById("ns").textContent=(UI[lang]||UI.en).saved+" ("+sv.length+")";
 }
-function strip(h){return h.replace(/<[^>]*>/g,"").replace(/&amp;/g,"&").replace(/&lt;/g,"<").replace(/&gt;/g,">").replace(/&nbsp;/g," ").trim();}
-function ago(d){try{const s=(Date.now()-new Date(d))/1000;if(s<3600)return Math.floor(s/60)+"m ago";if(s<86400)return Math.floor(s/3600)+"h ago";return Math.floor(s/86400)+"d ago";}catch{return"";}}
 function esc(s){return(s||"").replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;");}
 function escA(s){return(s||"").replace(/'/g,"&#39;").replace(/\n/g," ").slice(0,200);}
 function doSearch(){sq=document.getElementById("sinp").value.trim();document.getElementById("xbtn").style.display=sq?"block":"none";render();}
 function clearSearch(){sq="";document.getElementById("sinp").value="";document.getElementById("xbtn").style.display="none";render();}
 function toggleExp(id){exp=exp===id?null:id;render();}
 function spk(id,text){window.speechSynthesis.cancel();if(spkId===id){spkId=null;render();return;}const u=new SpeechSynthesisUtterance(text);const vs=window.speechSynthesis.getVoices();const lm={om:"en",am:"am",ti:"ti",so:"so",ar:"ar",en:"en"};const v=vs.find(x=>x.lang.startsWith(lm[lang]||"en"))||vs[0];if(v)u.voice=v;u.rate=0.9;u.onend=u.onerror=()=>{spkId=null;render();};window.speechSynthesis.speak(u);spkId=id;render();}
-function toggleSv(id){const a=all.find(x=>x.id===id)||sv.find(x=>x.id===id);if(!a)return;const idx=sv.findIndex(x=>x.id===id);if(idx>=0)sv.splice(idx,1);else sv.unshift(a);try{localStorage.setItem("aoro",JSON.stringify(sv));}catch{}updUI();render();}
+function toggleSv(id){const a=NEWS.find(x=>x.id===id)||sv.find(x=>x.id===id);if(!a)return;const idx=sv.findIndex(x=>x.id===id);if(idx>=0)sv.splice(idx,1);else sv.unshift(a);try{localStorage.setItem("aoro",JSON.stringify(sv));}catch{}updUI();render();}
 function shareA(url,title){if(navigator.share)navigator.share({title,url});else{navigator.clipboard?.writeText(url);alert("Link copied!");}}
 function switchView(v){view=v;document.getElementById("hview").style.display=v==="home"?"block":"none";document.getElementById("sview").style.display=v==="saved"?"block":"none";document.getElementById("nh").classList.toggle("on",v==="home");document.getElementById("ns").classList.toggle("on",v==="saved");render();}
-function toggleAuto(){auto=!auto;const t=document.getElementById("atrk");t.classList.toggle("on",auto);document.getElementById("albl").style.color=auto?"#22c55e":"#6b7280";}
-function showLoad(s){document.getElementById("ldiv").style.display=s?"block":"none";}
-function showErr(s,m){const b=document.getElementById("ebox");b.style.display=s?"block":"none";if(m)document.getElementById("emsg").textContent=m;}
 window.onload=init;
 </script>
 </body>

@@ -1,99 +1,584 @@
+<!DOCTYPE html>
+<html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<title>AI Oro Tech News</title>
-
-<meta name="theme-color" content="#7c3aed">
-<meta name="description" content="AI News, AI Models, AI Tools Afaan Oromoo">
-
-<link rel="manifest" href="manifest.json">
-
-<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;700;800&family=DM+Sans:wght@300;400;500;700&family=Cairo:wght@400;600;700&display=swap" rel="stylesheet">const TABS = [
-
-{id:"news",label:"📰 Oduu"},
-{id:"models",label:"🤖 AI Models"},
-{id:"video",label:"🎬 Video AI"},
-{id:"image",label:"🖼️ Image AI"},
-{id:"text",label:"✍️ Text AI"},
-{id:"freepaid",label:"💰 Free vs Paid"},
-{id:"saved",label:"🔖 Saved"},
-{id:"settings",label:"⚙️ Settings"}
-
-];<div class="hero">
-
-<div class="hero-badge">
-🔥 Trending 2026
-</div>
-
-<h1>
-AI Oro Tech News
-</h1>
-
-<p>
-AI Models, AI Tools, Rankings,
-Free vs Paid Comparisons,
-Tech News Afaan Oromoo
-</p>
-
-</div>.hero{
-padding:24px;
-margin-bottom:18px;
-border-radius:20px;
-background:linear-gradient(
-135deg,
-#7c3aed,
-#2563eb
-);
-}
-
-.hero-badge{
-display:inline-block;
-padding:6px 12px;
-background:rgba(255,255,255,.15);
-border-radius:20px;
-font-size:12px;
-margin-bottom:12px;
-}
-
-.hero h1{
-font-size:28px;
-font-family:'Syne';
-margin-bottom:10px;
-}
-
-.hero p{
-font-size:14px;
-opacity:.9;
-line-height:1.7;
-  data=data.filter(d=>
-
-d.title.toLowerCase().includes(q)
-
-||
-
-d.summary.toLowerCase().includes(q)
-
-||
-
-(d.detail||"")
-.toLowerCase()
-.includes(q)
-
-||
-
-(d.source||"")
-.toLowerCase()
-.includes(q)
-
-);data=data.filter(d=>
-d.title.toLowerCase().includes(q)
-||
-d.summary.toLowerCase().includes(q)
-);image:"https://..."<div class="card-thumb">
-<img src="${d.image}">
-</div>
-  <div class="stars">
-⭐⭐⭐⭐⭐
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Ai Oro Tech News</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;700;800&family=DM+Sans:wght@300;400;500&family=Cairo:wght@400;600;700&display=swap" rel="stylesheet"/>
+<style>
+:root{--bg:#06060f;--bg2:#0d1117;--purple:#7c3aed;--blue:#2563eb;--accent:#a78bfa;--text:#e2e8f0;--muted:#94a3b8;--dim:#6b7280;--card:rgba(255,255,255,.038);--border:rgba(255,255,255,.08);}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:linear-gradient(160deg,var(--bg) 0%,var(--bg2) 55%,#0a0a1e 100%);font-family:'DM Sans',sans-serif;color:var(--text);min-height:100vh;overflow-x:hidden}
+body.rtl{direction:rtl;font-family:'Cairo',sans-serif}
+::-webkit-scrollbar{width:3px;height:3px}::-webkit-scrollbar-thumb{background:var(--purple);border-radius:2px}
+header{background:rgba(6,6,16,.96);backdrop-filter:blur(20px);border-bottom:1px solid rgba(124,58,237,.2);position:sticky;top:0;z-index:60;padding:0 14px}
+.hi{max-width:900px;margin:0 auto}
+.hr1{display:flex;align-items:center;justify-content:space-between;height:52px;gap:8px}
+.logo{display:flex;align-items:center;gap:8px;flex-shrink:0;cursor:pointer}
+.li{width:32px;height:32px;border-radius:8px;background:linear-gradient(135deg,var(--purple),var(--blue));display:flex;align-items:center;justify-content:center;font-size:16px}
+.ln{font-family:'Syne',sans-serif;font-weight:800;font-size:13px;letter-spacing:-.3px}
+.ls{font-size:9px;letter-spacing:1.2px;text-transform:uppercase;color:#22c55e}
+.lscroll{display:flex;gap:4px;overflow-x:auto;scrollbar-width:none}
+.lscroll::-webkit-scrollbar{display:none}
+.lbtn{white-space:nowrap;padding:3px 9px;border-radius:20px;font-size:11px;border:1px solid rgba(255,255,255,.09);background:rgba(255,255,255,.05);color:var(--dim);cursor:pointer;font-family:inherit;transition:all .15s}
+.lbtn.on{background:rgba(124,58,237,.4);border-color:var(--purple);color:#c4b5fd}
+.hr2{display:flex;align-items:center;gap:6px;padding-bottom:10px;overflow-x:auto;scrollbar-width:none}
+.hr2::-webkit-scrollbar{display:none}
+.nbtn{white-space:nowrap;padding:7px 14px;border-radius:9px;font-size:12px;border:1px solid rgba(255,255,255,.1);background:rgba(255,255,255,.05);color:var(--muted);cursor:pointer;font-family:inherit;transition:all .15s;font-weight:500}
+.nbtn.on{background:linear-gradient(135deg,var(--purple),var(--blue));border-color:transparent;color:white;font-weight:700}
+main{max-width:900px;margin:0 auto;padding:16px 12px}
+.srow{display:flex;gap:8px;margin-bottom:16px}
+.si{flex:1;background:rgba(255,255,255,.06);border:1px solid rgba(109,40,217,.3);border-radius:12px;padding:11px 16px;color:var(--text);font-size:14px;font-family:inherit;outline:none;transition:border-color .2s}
+.si:focus{border-color:var(--purple)}
+.sbtn{background:linear-gradient(135deg,var(--purple),var(--blue));border:none;border-radius:12px;padding:11px 18px;color:white;font-size:15px;cursor:pointer;font-weight:700}
+.xbtn{background:rgba(255,71,87,.15);border:1px solid rgba(255,71,87,.3);border-radius:12px;padding:11px 13px;color:#ff6b7a;cursor:pointer;font-size:13px;display:none}
+.grid{display:flex;flex-direction:column;gap:14px}
+.card{background:var(--card);border:1px solid var(--border);border-radius:16px;overflow:hidden;animation:fadeUp .3s ease both;transition:transform .22s,box-shadow .22s;cursor:pointer}
+.card:hover{transform:translateY(-3px);box-shadow:0 16px 40px rgba(109,40,217,.18)}
+@keyframes fadeUp{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+.cthumb{width:100%;height:150px;display:flex;align-items:center;justify-content:center;font-size:52px;border-bottom:1px solid var(--border)}
+.cbody{padding:14px}
+.cmeta{display:flex;gap:6px;align-items:center;margin-bottom:8px;flex-wrap:wrap}
+.badge{padding:2px 9px;border-radius:20px;font-size:10px;font-weight:700;border:1px solid}
+.badge.high{background:rgba(255,71,87,.12);color:#ff6b7a;border-color:rgba(255,71,87,.3)}
+.badge.medium{background:rgba(251,191,36,.1);color:#fbbf24;border-color:rgba(251,191,36,.3)}
+.badge.low{background:rgba(34,197,94,.1);color:#4ade80;border-color:rgba(34,197,94,.3)}
+.badge.free{background:rgba(34,197,94,.12);color:#4ade80;border-color:rgba(34,197,94,.3)}
+.msrc{color:var(--dim);font-size:11px}
+.mdate{color:var(--dim);font-size:11px}
+.ctitle{font-size:15px;font-weight:700;line-height:1.4;color:#f1f5f9;margin-bottom:7px;font-family:'Syne',sans-serif}
+.csum{color:var(--muted);font-size:13px;line-height:1.6;margin-bottom:12px}
+.cacts{display:flex;gap:6px;flex-wrap:wrap;align-items:center}
+.abtn{padding:5px 11px;border-radius:8px;font-size:11px;cursor:pointer;font-family:inherit;border:1px solid rgba(255,255,255,.1);background:rgba(255,255,255,.06);color:var(--muted);transition:all .15s}
+.abtn:hover{opacity:.8}
+.abtn.spk{background:rgba(59,130,246,.25);border-color:#3b82f6;color:#93c5fd}
+.abtn.svd{background:rgba(124,58,237,.25);border-color:var(--purple);color:#c4b5fd}
+.rlink{margin-left:auto;font-size:11px;color:#6366f1;text-decoration:none;font-weight:600}
+/* MODAL */
+.modal-bg{position:fixed;inset:0;background:rgba(0,0,0,.88);z-index:200;display:none;align-items:flex-end;justify-content:center}
+.modal-bg.open{display:flex}
+.modal{background:#0d1117;border:1px solid rgba(124,58,237,.25);border-radius:20px 20px 0 0;width:100%;max-width:860px;max-height:90vh;overflow-y:auto;padding:22px 18px 50px}
+.mcls{float:right;background:rgba(255,255,255,.08);border:none;color:var(--text);width:32px;height:32px;border-radius:50%;cursor:pointer;font-size:16px;margin-bottom:12px}
+.mtitle{font-size:18px;font-weight:800;color:#f1f5f9;margin-bottom:10px;font-family:'Syne',sans-serif;line-height:1.4;clear:both}
+.mbody{color:var(--muted);font-size:13px;line-height:1.7}
+.mlink{display:inline-flex;align-items:center;gap:6px;margin-top:16px;background:linear-gradient(135deg,var(--purple),var(--blue));color:white;padding:10px 20px;border-radius:10px;text-decoration:none;font-weight:700;font-size:13px}
+/* TABLE */
+.ctbl{width:100%;border-collapse:collapse;margin:12px 0;font-size:12px}
+.ctbl th{background:rgba(124,58,237,.18);color:var(--accent);padding:8px 10px;text-align:left;border-bottom:1px solid rgba(255,255,255,.1);font-size:11px}
+.ctbl td{padding:8px 10px;border-bottom:1px solid rgba(255,255,255,.04);color:var(--muted);vertical-align:top}
+.ctbl tr:hover td{background:rgba(255,255,255,.025)}
+.win{color:#4ade80;font-weight:700}
+/* SETTINGS */
+.cbox{background:linear-gradient(135deg,rgba(124,58,237,.12),rgba(37,99,235,.12));border:1px solid rgba(124,58,237,.25);border-radius:14px;padding:20px;text-align:center;margin-top:16px}
+.empty{text-align:center;padding:60px 0;color:#374151}
+footer{text-align:center;padding:30px 0 14px;color:#1f2937;font-size:11px}
+</style>
+</head>
+<body>
+<header>
+<div class="hi">
+<div class="hr1">
+  <div class="logo" onclick="showTab('news')">
+    <div class="li">🧠</div>
+    <div>
+      <div class="ln">Ai Oro Tech News</div>
+      <div class="ls" id="live-dot">● June 2026 · Real</div>
+    </div>
   </div>
+  <div class="lscroll" id="lbar"></div>
+</div>
+<div class="hr2" id="navbar"></div>
+</div>
+</header>
+
+<main>
+<div id="search-wrap" style="display:none">
+  <div class="srow">
+    <input class="si" id="sinp" placeholder="Search..." onkeydown="if(event.key==='Enter')doSearch()"/>
+    <button class="sbtn" onclick="doSearch()">🔍</button>
+    <button class="xbtn" id="xbtn" onclick="clearSearch()">✕</button>
+  </div>
+</div>
+<div class="grid" id="grid"></div>
+<div class="empty" id="empty" style="display:none">
+  <div style="font-size:38px;margin-bottom:10px">🔍</div>
+  <div id="emsg">Not found</div>
+</div>
+<footer>Ai Oro Tech News · by Musab Anes · June 2026</footer>
+</main>
+
+<div class="modal-bg" id="mbg" onclick="closeMod(event)">
+  <div class="modal" id="modal">
+    <button class="mcls" onclick="closeModD()">✕</button>
+    <div id="mcontent"></div>
+  </div>
+</div>
+
+<script>
+// ═══════════════════════════
+// TRANSLATIONS
+// ═══════════════════════════
+const LANGS=[
+  {code:"om",label:"🇪🇹 Oromoo"},
+  {code:"en",label:"🇬🇧 English"},
+  {code:"am",label:"🇪🇹 Amharic"},
+  {code:"ti",label:"🇪🇹 Tigrinya"},
+  {code:"so",label:"🇸🇴 Somali"},
+  {code:"ar",label:"🇸🇦 Arabic"},
+];
+
+const TR={
+  om:{
+    news:"📰 Oduu", models:"🤖 AI Models", voice:"🔊 Sagalee AI", video:"🎬 Viidiyoo AI",
+    image:"🖼️ Suuraa AI", code:"💻 Code AI", saved:"🔖 Kuusamee", settings:"⚙️ Settings",
+    search:"Barbaadi...", save:"📌 Kuusi", saved_btn:"🔖", listen:"🔊 Dhaggeeffadhu",
+    stop:"⏹ Dhaabi", share:"📤 Share", more:"Caalaatti →", noResult:"Waan barbaadde hin argamne",
+    noSaved:"Kuusameen hin jiru", free:"✅ Bilisaa", paid:"💰 Kaffalti", both:"🔄 Lachuu",
+    tryIt:"🔗 Yaalii →", rank:"Sadarkaa"
+  },
+  en:{
+    news:"📰 News", models:"🤖 AI Models", voice:"🔊 Voice AI", video:"🎬 Video AI",
+    image:"🖼️ Image AI", code:"💻 Code AI", saved:"🔖 Saved", settings:"⚙️ Settings",
+    search:"Search...", save:"📌 Save", saved_btn:"🔖", listen:"🔊 Listen",
+    stop:"⏹ Stop", share:"📤 Share", more:"Read more →", noResult:"Nothing found",
+    noSaved:"No saved items", free:"✅ Free", paid:"💰 Paid", both:"🔄 Free+Paid",
+    tryIt:"🔗 Try it →", rank:"Rank"
+  },
+  am:{
+    news:"📰 ዜና", models:"🤖 AI ሞዴሎች", voice:"🔊 ድምጽ AI", video:"🎬 ቪዲዮ AI",
+    image:"🖼️ ምስል AI", code:"💻 ኮድ AI", saved:"🔖 የተቀመጠ", settings:"⚙️ ቅንብሮች",
+    search:"ፈልግ...", save:"📌 አስቀምጥ", saved_btn:"🔖", listen:"🔊 አዳምጥ",
+    stop:"⏹ አቁም", share:"📤 አጋራ", more:"ተጨማሪ →", noResult:"ምንም አልተገኘም",
+    noSaved:"የተቀመጠ ዜና የለም", free:"✅ ነፃ", paid:"💰 የሚከፈል", both:"🔄 ሁለቱም",
+    tryIt:"🔗 ሞክር →", rank:"ደረጃ"
+  },
+  ti:{
+    news:"📰 ዜናታት", models:"🤖 AI ሞዴላት", voice:"🔊 ድምጺ AI", video:"🎬 ቪድዮ AI",
+    image:"🖼️ ስእሊ AI", code:"💻 ኮድ AI", saved:"🔖 ዝተዓቀበ", settings:"⚙️ ምቕያር",
+    search:"ድለዩ...", save:"📌 ዓቅብ", saved_btn:"🔖", listen:"🔊 ስምዑ",
+    stop:"⏹ ኣቋርጽ", share:"📤 ካፍል", more:"ተወሳኺ →", noResult:"ኣይተረኽበን",
+    noSaved:"ዝተዓቀበ ዜና የለን", free:"✅ ብዙሕ", paid:"💰 ክፍሊት", both:"🔄 ክልቲኡ",
+    tryIt:"🔗 ፈትን →", rank:"ደረጃ"
+  },
+  so:{
+    news:"📰 Wararka", models:"🤖 Moodelooyinka AI", voice:"🔊 Codka AI", video:"🎬 Muuqaalka AI",
+    image:"🖼️ Sawirka AI", code:"💻 Koodhka AI", saved:"🔖 La kaydiyay", settings:"⚙️ Xulashooyinka",
+    search:"Raadi...", save:"📌 Kaydso", saved_btn:"🔖", listen:"🔊 Dhageyso",
+    stop:"⏹ Jooji", share:"📤 La wadaag", more:"Wax badan →", noResult:"Waxba lama helin",
+    noSaved:"Waran la kaydiyay ma jiro", free:"✅ Bilaash", paid:"💰 Lacag", both:"🔄 Labadaba",
+    tryIt:"🔗 Tijaabi →", rank:"Darajo"
+  },
+  ar:{
+    news:"📰 الأخبار", models:"🤖 نماذج AI", voice:"🔊 الصوت AI", video:"🎬 فيديو AI",
+    image:"🖼️ صور AI", code:"💻 كود AI", saved:"🔖 المحفوظة", settings:"⚙️ الإعدادات",
+    search:"ابحث...", save:"📌 احفظ", saved_btn:"🔖", listen:"🔊 استمع",
+    stop:"⏹ إيقاف", share:"📤 مشاركة", more:"اقرأ أكثر ←", noResult:"لم يتم العثور على شيء",
+    noSaved:"لا يوجد محفوظ", free:"✅ مجاني", paid:"💰 مدفوع", both:"🔄 كلاهما",
+    tryIt:"🔗 جرّب ←", rank:"الترتيب"
+  },
+};
+
+// ═══════════════════════════
+// DATA — PRACTICAL & USEFUL
+// ═══════════════════════════
+
+const NEWS_DATA=[
+  {id:"n1",type:"news",icon:"🏗️",impact:"high",source:"TechCrunch",date:"Jun 2026",
+   title:{om:"Google AI Studio — Yeroo Xiqqoon App Android Hojjechuun Danda'ame",en:"Google AI Studio — Build Android Apps in Minutes, No Coding Needed",am:"Google AI Studio — በደቂቃዎች Android App ለመስራት"},
+   summary:{om:"Google AI Studio haaraan yeroo xiqqoon app Android hojjechuun danda'ama — koodii beekuu osoo hin barbaadin. Prompt barreessitee app guutuu argatta. Bilisaa fi Chrome keessatti hojjeta.",en:"Google AI Studio now lets anyone build native Android apps from a text prompt in minutes. No SDK, no local setup. Free to use in your browser.",am:"Google AI Studio አሁን ማንም ሰው Native Android App ከ text prompt ውስጥ በደቂቃዎች ሊሠራ ይችላል።"},
+   detail:{om:`<h3 style="color:#f1f5f9;margin-bottom:10px">🏗️ Google AI Studio — App Hojjechuuf</h3>
+<p style="margin-bottom:12px">Google AI Studio yeroo ammaa waan haaraa hedduu qaba — hunda bilisaan:</p>
+<ul style="color:#94a3b8;font-size:13px;line-height:2;padding-left:16px">
+<li><strong style="color:#c4b5fd">App Android</strong> — prompt barreessitee app hojjechuun danda'ama</li>
+<li><strong style="color:#c4b5fd">Gemini 3.1 Pro</strong> — model cimaa bilisaan fayyadamuu</li>
+<li><strong style="color:#c4b5fd">Video uumuu</strong> — Veo 3.1 tiin video bilisaan hojjechuun</li>
+<li><strong style="color:#c4b5fd">Suuraa uumuu</strong> — Nano Banana 2 tiin suuraa hojjechuun</li>
+<li><strong style="color:#c4b5fd">Firebase integration</strong> — database fi login waliin</li>
+<li><strong style="color:#c4b5fd">GitHub export</strong> — koodii GitHub irratti kaa'uu</li>
+</ul>
+<p style="margin-top:12px;color:#4ade80;font-size:13px">✅ Guutumaan bilisaa — card hin barbaachisu!</p>`,
+   en:`<h3 style="color:#f1f5f9;margin-bottom:10px">🏗️ Google AI Studio — What You Can Do</h3>
+<ul style="color:#94a3b8;font-size:13px;line-height:2;padding-left:16px">
+<li><strong style="color:#c4b5fd">Build Android apps</strong> — just type what you want, get a working app</li>
+<li><strong style="color:#c4b5fd">Gemini 3.1 Pro</strong> — most powerful model, free</li>
+<li><strong style="color:#c4b5fd">Generate videos</strong> — Veo 3.1 for free video creation</li>
+<li><strong style="color:#c4b5fd">Generate images</strong> — Nano Banana 2 for instant images</li>
+<li><strong style="color:#c4b5fd">Firebase integration</strong> — database + auth built in</li>
+<li><strong style="color:#c4b5fd">Deploy to cloud</strong> — one click to publish your app</li>
+</ul>
+<p style="margin-top:12px;color:#4ade80;font-size:13px">✅ Completely free — no credit card needed!</p>`,
+   am:`<h3 style="color:#f1f5f9;margin-bottom:10px">🏗️ Google AI Studio</h3><p style="color:#94a3b8">Google AI Studio ነፃ AI ልማት መሣሪያ ነው። Android app, video, image ሁሉ ነፃ ነው።</p>`},
+   url:"https://aistudio.google.com"},
+
+  {id:"n2",type:"news",icon:"📺",impact:"high",source:"YouTube Blog",date:"Jun 2026",
+   title:{om:"YouTube AI Features Haaraa — Dream Screen, Auto Dubbing, Chapters",en:"YouTube AI Features 2026 — Dream Screen, Auto-Dubbing, AI Chapters",am:"YouTube AI Features 2026 — Dream Screen, Auto-Dubbing"},
+   summary:{om:"YouTube Dream Screen AI tiin background haaraa video keessatti galchuun danda'ama. Auto-dubbing afaan 20+ tti video kee jijjiira. AI Chapters ofumaan video kee qooda.",en:"YouTube's Dream Screen lets you add AI-generated backgrounds to your videos. Auto-dubbing translates your video into 20+ languages. AI Chapters auto-segments your content.",am:"YouTube's Dream Screen AI Generated backgrounds ማከል ይችላሉ።"},
+   detail:{om:`<h3 style="color:#f1f5f9;margin-bottom:10px">📺 YouTube AI Features Haaraa 2026</h3>
+<table class="ctbl">
+<tr><th>Feature</th><th>Maal Hojjeta</th><th>Bilisaa?</th></tr>
+<tr><td><strong style="color:#c4b5fd">Dream Screen</strong></td><td>AI tiin background haaraa uumuu</td><td class="win">✅ Bilisaa</td></tr>
+<tr><td><strong style="color:#c4b5fd">Auto Dubbing</strong></td><td>Afaan 20+ tti voice jijjiiruu</td><td>🔄 Xiqqoo</td></tr>
+<tr><td><strong style="color:#c4b5fd">AI Chapters</strong></td><td>Video ofumaan qooda</td><td class="win">✅ Bilisaa</td></tr>
+<tr><td><strong style="color:#c4b5fd">AI Title/Description</strong></td><td>Title fi description hojjechuuf</td><td class="win">✅ Bilisaa</td></tr>
+<tr><td><strong style="color:#c4b5fd">AI Thumbnail</strong></td><td>Thumbnail haaraa uumuu</td><td>💰 Kaffalti</td></tr>
+<tr><td><strong style="color:#c4b5fd">Aloud (dubbing)</strong></td><td>Voice clone tiin afaan jijjiiruu</td><td>💰 $29+/ji'a</td></tr>
+</table>`,
+   en:`<h3 style="color:#f1f5f9;margin-bottom:10px">📺 YouTube AI Features 2026</h3>
+<table class="ctbl">
+<tr><th>Feature</th><th>What It Does</th><th>Free?</th></tr>
+<tr><td><strong style="color:#c4b5fd">Dream Screen</strong></td><td>AI-generated video backgrounds</td><td class="win">✅ Free</td></tr>
+<tr><td><strong style="color:#c4b5fd">Auto Dubbing</strong></td><td>Translates your voice to 20+ languages</td><td>🔄 Limited</td></tr>
+<tr><td><strong style="color:#c4b5fd">AI Chapters</strong></td><td>Auto-segments your video</td><td class="win">✅ Free</td></tr>
+<tr><td><strong style="color:#c4b5fd">AI Title/Description</strong></td><td>Suggests titles and descriptions</td><td class="win">✅ Free</td></tr>
+<tr><td><strong style="color:#c4b5fd">AI Thumbnail</strong></td><td>Generates thumbnail options</td><td>💰 Paid</td></tr>
+</table>`,
+   am:`<h3 style="color:#f1f5f9;margin-bottom:10px">📺 YouTube AI Features 2026</h3><p style="color:#94a3b8">YouTube Dream Screen, Auto-Dubbing እና AI Chapters አሉ። ብዙዎቹ ነፃ ናቸው።</p>`},
+   url:"https://youtube.com"},
+];
+
+const VOICE_DATA=[
+  {id:"vo1",type:"voice",icon:"🔊",impact:"high",source:"NSF Tech",date:"2026",
+   title:{om:"ElevenLabs — Sagalee AI Gaarii Caalaa, Afaan Hedduu, Clone Saffisa",en:"ElevenLabs — Best AI Voice 2026, Voice Cloning, 29+ Languages",am:"ElevenLabs — ምርጥ AI ድምጽ 2026"},
+   summary:{om:"ElevenLabs sagalee AI isa cimaa 2026 — sagalee namaa fakkaata. Afaan 29+ danda'a. Voice clone — sagalee kee daqiiqaa muraasaan copy godha. Bilisaa eegaluun danda'ama.",en:"ElevenLabs is the #1 AI voice generator in 2026 — sounds indistinguishable from humans. Supports 29+ languages. Clone your voice in minutes. Free tier available.",am:"ElevenLabs በ2026 ምርጥ AI ድምጽ ነው — ከሰዎች ድምጽ ለመለየት አስቸጋሪ ነው።"},
+   detail:{om:`<h3 style="color:#f1f5f9;margin-bottom:10px">🔊 Sagalee AI Tools — Sadarkaa 2026</h3>
+<table class="ctbl">
+<tr><th>#</th><th>App</th><th>Cimina</th><th>Bilisaa?</th><th>Gatii</th></tr>
+<tr><td>1</td><td><strong class="win">ElevenLabs</strong></td><td>Qulqullina #1, Clone, Afaan 29+</td><td>✅ 10k karakter/ji'a</td><td>$5/ji'a+</td></tr>
+<tr><td>2</td><td><strong>Murf AI</strong></td><td>Marketing, Presentation</td><td>✅ Xiqqoo</td><td>$19/ji'a+</td></tr>
+<tr><td>3</td><td><strong>PlayHT</strong></td><td>Sagalee 800+, Clone</td><td>✅ 12,500 karakter</td><td>$31/ji'a+</td></tr>
+<tr><td>4</td><td><strong>Google TTS</strong></td><td>Stable, API, Afaan hedduu</td><td>✅ 1M karakter/ji'a</td><td>Bilisaa+API</td></tr>
+<tr><td>5</td><td><strong>Azure TTS</strong></td><td>Afaan 140+, Sagalee 400+</td><td>✅ 500k karakter/ji'a</td><td>Bilisaa+API</td></tr>
+<tr><td>6</td><td><strong>Speechify</strong></td><td>Phone irratti salphaa</td><td>✅ Daangaan</td><td>$139/waggaa</td></tr>
+<tr><td>7</td><td><strong>NaturalReader</strong></td><td>PDF, Document dubbisuuf</td><td>✅ Bilisaa</td><td>$9.99/ji'a+</td></tr>
+<tr><td>8</td><td><strong>TTSMaker</strong></td><td>Guutumaan bilisaa</td><td>💯 Guutumaan</td><td>Bilisaa</td></tr>
+</table>
+<p style="margin-top:10px;font-size:12px;color:#4ade80">💡 Jalqabaaf ElevenLabs bilisaa yaalii — qulqullina isaa hubadhu. Afaan Oromoo: Google TTS ykn Azure fayyadami.</p>`,
+   en:`<h3 style="color:#f1f5f9;margin-bottom:10px">🔊 AI Voice Tools Ranked 2026</h3>
+<table class="ctbl">
+<tr><th>#</th><th>Tool</th><th>Best For</th><th>Free?</th><th>Price</th></tr>
+<tr><td>1</td><td><strong class="win">ElevenLabs</strong></td><td>Best quality, cloning, 29+ langs</td><td>✅ 10k chars/mo</td><td>$5/mo+</td></tr>
+<tr><td>2</td><td><strong>Murf AI</strong></td><td>Marketing, business</td><td>✅ Limited</td><td>$19/mo+</td></tr>
+<tr><td>3</td><td><strong>PlayHT</strong></td><td>800+ voices, cloning</td><td>✅ 12,500 chars</td><td>$31/mo+</td></tr>
+<tr><td>4</td><td><strong>Google TTS</strong></td><td>API, many languages</td><td>✅ 1M chars/mo</td><td>Free+API</td></tr>
+<tr><td>5</td><td><strong>Azure TTS</strong></td><td>140+ languages, 400+ voices</td><td>✅ 500k chars/mo</td><td>Free+API</td></tr>
+<tr><td>6</td><td><strong>TTSMaker</strong></td><td>100% free forever</td><td>💯 Always free</td><td>Free</td></tr>
+</table>
+<p style="margin-top:10px;font-size:12px;color:#4ade80">💡 Start with ElevenLabs free tier to test quality. For multi-language: Google or Azure TTS.</p>`,
+   am:`<h3 style="color:#f1f5f9;margin-bottom:10px">🔊 AI ድምጽ ምርጥ 2026</h3><p style="color:#94a3b8">ElevenLabs በ2026 ምርጥ ነው። Google TTS ለብዙ ቋንቋዎች ጥሩ ነው። TTSMaker ሙሉ ለሙሉ ነፃ ነው።</p>`},
+   url:"https://elevenlabs.io"},
+];
+
+const VIDEO_DATA=[
+  {id:"vi1",type:"video",icon:"🎬",impact:"high",source:"AtlasCloud",date:"Jun 2026",
+   title:{om:"Video AI Sadarkaa 10 — 2026: Bilisaa fi Kaffalti",en:"Top 10 AI Video Tools 2026 — Free & Paid Ranked",am:"10 ምርጥ AI ቪዲዮ መሣሪያዎች 2026"},
+   summary:{om:"Seedance 2.0 sadarkaa 1ffaa video AI 2026. Kling bilisaan gaarii. Google Veo 3 qulqullina olka'aa kennaaf. Hundi madaale — bilisaa fi kaffalti.",en:"Seedance 2.0 ranks #1 for AI video in 2026. Kling is the best free option. Google Veo 3 for highest quality. Full comparison inside.",am:"Seedance 2.0 በ2026 ምርጥ AI ቪዲዮ ነው።"},
+   detail:{om:`<h3 style="color:#f1f5f9;margin-bottom:10px">🎬 Video AI Sadarkaa 2026</h3>
+<table class="ctbl">
+<tr><th>#</th><th>App</th><th>Cimina</th><th>Bilisaa?</th><th>Gatii</th></tr>
+<tr><td>1</td><td><strong class="win">Seedance 2.0</strong></td><td>Saffisa, Character sirrii</td><td>✅ Jira</td><td>Bilisaa+Kaffalti</td></tr>
+<tr><td>2</td><td><strong>Kling AI 3.0</strong></td><td>Physics cinematic</td><td>✅ 66 credits/guyyaa</td><td>Bilisaa+$8/ji'a</td></tr>
+<tr><td>3</td><td><strong>Google Veo 3</strong></td><td>Qulqullina olka'aa, sagalee waliin</td><td>✅ AI Studio</td><td>Bilisaa xiqqoo</td></tr>
+<tr><td>4</td><td><strong>Sora 2</strong></td><td>OpenAI, Cinematic</td><td>❌</td><td>$20+/ji'a</td></tr>
+<tr><td>5</td><td><strong>Runway ML</strong></td><td>Edit+Generate</td><td>✅ 125 credits</td><td>$12/ji'a+</td></tr>
+<tr><td>6</td><td><strong>Pika 2.0</strong></td><td>Social media, Salphaa</td><td>✅ Jira</td><td>Bilisaa+$8/ji'a</td></tr>
+<tr><td>7</td><td><strong>HeyGen</strong></td><td>Avatar, Presentation</td><td>✅ 3 video/ji'a</td><td>$24/ji'a+</td></tr>
+<tr><td>8</td><td><strong>CapCut AI</strong></td><td>Edit+AI, Phone irratti</td><td>✅ Hedduu bilisaa</td><td>$9.99/ji'a Pro</td></tr>
+<tr><td>9</td><td><strong>Luma Dream</strong></td><td>Cinematic, 30 video/ji'a</td><td>✅ 30/ji'a</td><td>Bilisaa+Kaffalti</td></tr>
+<tr><td>10</td><td><strong>WAN 2.2</strong></td><td>Open source, Bilisaa guutuu</td><td>💯 Guutumaan</td><td>Bilisaa</td></tr>
+</table>
+<p style="margin-top:10px;font-size:12px;color:#4ade80">💡 Jalqabaaf: Kling bilisaa yaalii. Qulqullina olka'aaf: Veo 3 (AI Studio). Guutumaan bilisaadhaaf: WAN 2.2.</p>`,
+   en:`<h3 style="color:#f1f5f9;margin-bottom:10px">🎬 Top 10 AI Video Tools 2026</h3>
+<table class="ctbl">
+<tr><th>#</th><th>Tool</th><th>Best For</th><th>Free?</th><th>Price</th></tr>
+<tr><td>1</td><td><strong class="win">Seedance 2.0</strong></td><td>Speed + character consistency</td><td>✅ Yes</td><td>Free+Paid</td></tr>
+<tr><td>2</td><td><strong>Kling AI 3.0</strong></td><td>Physics, cinematic</td><td>✅ 66 credits/day</td><td>Free+$8/mo</td></tr>
+<tr><td>3</td><td><strong>Google Veo 3</strong></td><td>Highest quality + audio</td><td>✅ AI Studio</td><td>Limited free</td></tr>
+<tr><td>4</td><td><strong>Runway ML</strong></td><td>Edit + generate</td><td>✅ 125 credits</td><td>$12/mo+</td></tr>
+<tr><td>5</td><td><strong>CapCut AI</strong></td><td>Mobile editing + AI</td><td>✅ Mostly free</td><td>$9.99/mo Pro</td></tr>
+<tr><td>6</td><td><strong>HeyGen</strong></td><td>Avatar presentations</td><td>✅ 3 videos/mo</td><td>$24/mo+</td></tr>
+<tr><td>7</td><td><strong>WAN 2.2</strong></td><td>Open source, free forever</td><td>💯 Always free</td><td>Free</td></tr>
+</table>
+<p style="margin-top:10px;font-size:12px;color:#4ade80">💡 Best free start: Kling AI. Highest quality: Veo 3. 100% free: WAN 2.2.</p>`,
+   am:`<h3 style="color:#f1f5f9;margin-bottom:10px">🎬 10 ምርጥ AI ቪዲዮ 2026</h3><p style="color:#94a3b8">Seedance 2.0 ደረጃ 1ኛ ነው። Kling AI ነፃ ለሆነ ጥሩ ነው። Veo 3 ከፍተኛ ጥራት ለሚፈልጉ።</p>`},
+   url:"https://www.atlascloud.ai/blog/guides/10-best-ai-video-generators-free-no-subscription-in-2026"},
+];
+
+const IMAGE_DATA=[
+  {id:"im1",type:"image",icon:"🖼️",impact:"high",source:"Gradually.ai",date:"2026",
+   title:{om:"Suuraa AI Sadarkaa 10 — Midjourney vs DALL-E vs Stable Diffusion 2026",en:"Top 10 AI Image Tools 2026 — Midjourney vs DALL-E vs Stable Diffusion",am:"10 ምርጥ AI ምስል መሣሪያዎች 2026"},
+   summary:{om:"Midjourney v7 aartii irratti sadarkaa 1ffaa. GPT Image 2 prompt sirriitti hubata. Stable Diffusion guutumaan bilisaa. Bing Image bilisaa fi salphaa.",en:"Midjourney v7 leads in art quality. GPT Image 2 best understands prompts. Stable Diffusion is 100% free. Bing Image Creator is easiest free option.",am:"Midjourney v7 የምስል ጥራት ምርጥ ነው። Stable Diffusion ሙሉ ለሙሉ ነፃ ነው።"},
+   detail:{om:`<h3 style="color:#f1f5f9;margin-bottom:10px">🖼️ Suuraa AI Sadarkaa 2026</h3>
+<table class="ctbl">
+<tr><th>#</th><th>App</th><th>Cimina</th><th>Bilisaa?</th><th>Gatii</th></tr>
+<tr><td>1</td><td><strong class="win">Midjourney v7</strong></td><td>Aartii, Qulqullina olka'aa</td><td>❌</td><td>$10/ji'a+</td></tr>
+<tr><td>2</td><td><strong>GPT Image 2</strong></td><td>Prompt sirrii, Text suuraa keessa</td><td>✅ ChatGPT</td><td>$20/ji'a Plus</td></tr>
+<tr><td>3</td><td><strong>Stable Diffusion</strong></td><td>Open source, Bilisaa, Custom</td><td>💯 Guutumaan</td><td>Bilisaa</td></tr>
+<tr><td>4</td><td><strong>FLUX</strong></td><td>Photorealism cimaa</td><td>✅ Xiqqoo</td><td>$0.06/suuraa</td></tr>
+<tr><td>5</td><td><strong>Adobe Firefly</strong></td><td>Hojii daldalaa, Legal</td><td>✅ 25/ji'a</td><td>$10/ji'a+</td></tr>
+<tr><td>6</td><td><strong>Ideogram V3</strong></td><td>Text suuraa keessatti</td><td>✅ 10/guyyaa</td><td>$7/ji'a+</td></tr>
+<tr><td>7</td><td><strong>Leonardo AI</strong></td><td>Aartii, Game asset</td><td>✅ 150 token/guyyaa</td><td>Bilisaa+Kaffalti</td></tr>
+<tr><td>8</td><td><strong>Bing Image</strong></td><td>DALL-E tiin, Bilisaa guutuu</td><td>💯 Guutumaan</td><td>Bilisaa</td></tr>
+<tr><td>9</td><td><strong>Imagen 4</strong></td><td>Google, AI Studio keessa</td><td>✅ AI Studio</td><td>Bilisaa xiqqoo</td></tr>
+<tr><td>10</td><td><strong>ImagineArt</strong></td><td>Suite guutuu, Salphaa</td><td>✅ 50/guyyaa</td><td>$10/ji'a+</td></tr>
+</table>
+<p style="margin-top:10px;font-size:12px;color:#4ade80">💡 Bilisaan jalqabuuf: Bing Image (DALL-E tiin). Qulqullina olka'aaf: Midjourney. Guutumaan bilisaadhaaf: Stable Diffusion.</p>`,
+   en:`<h3 style="color:#f1f5f9;margin-bottom:10px">🖼️ Top 10 AI Image Tools 2026</h3>
+<table class="ctbl">
+<tr><th>#</th><th>Tool</th><th>Best For</th><th>Free?</th><th>Price</th></tr>
+<tr><td>1</td><td><strong class="win">Midjourney v7</strong></td><td>Art quality, aesthetics</td><td>❌</td><td>$10/mo+</td></tr>
+<tr><td>2</td><td><strong>GPT Image 2</strong></td><td>Prompt accuracy, text in images</td><td>✅ ChatGPT</td><td>$20/mo</td></tr>
+<tr><td>3</td><td><strong>Stable Diffusion</strong></td><td>Open source, fully free, custom</td><td>💯 Always free</td><td>Free</td></tr>
+<tr><td>4</td><td><strong>Adobe Firefly</strong></td><td>Commercial use, legal safety</td><td>✅ 25/mo</td><td>$10/mo+</td></tr>
+<tr><td>5</td><td><strong>Bing Image</strong></td><td>Easiest free option (DALL-E)</td><td>💯 Always free</td><td>Free</td></tr>
+<tr><td>6</td><td><strong>Imagen 4</strong></td><td>Google AI Studio, cinematic</td><td>✅ AI Studio</td><td>Limited free</td></tr>
+</table>
+<p style="margin-top:10px;font-size:12px;color:#4ade80">💡 Easiest free: Bing Image Creator. Best quality: Midjourney. 100% free: Stable Diffusion.</p>`,
+   am:`<h3 style="color:#f1f5f9;margin-bottom:10px">🖼️ 10 ምርጥ AI ምስል 2026</h3><p style="color:#94a3b8">Midjourney v7 ምርጥ ጥራት አለው። Bing Image ሙሉ ለሙሉ ነፃ ነው። Stable Diffusion open source ነው።</p>`},
+   url:"https://www.bing.com/images/create"},
+];
+
+const MODELS_DATA=[
+  {id:"mo1",type:"models",icon:"🤖",impact:"high",source:"Multiple",date:"Jun 2026",
+   title:{om:"Claude vs ChatGPT vs Gemini — Eenyu Maal Irratti Caala? 2026",en:"Claude vs ChatGPT vs Gemini 2026 — Which is Best for What?",am:"Claude vs ChatGPT vs Gemini 2026 — የትኛው ምርጥ ነው?"},
+   summary:{om:"Claude barreeffama dheeraa fi qorannoo irratti caala. ChatGPT ecosystem fi tool hedduu qaba. Gemini multimodal fi Google waliin hojii irratti caala. Hundi $20/ji'a — adda ta'uun fayyadama keetirratti.",en:"Claude leads in long writing and analysis. ChatGPT has the biggest ecosystem. Gemini excels at multimodal tasks and Google integration. All cost ~$20/month.",am:"Claude ለረጅም ጽሑፍ ምርጥ ነው። ChatGPT ትልቁ ecosystem አለው። Gemini multimodal ምርጥ ነው።"},
+   detail:{om:`<h3 style="color:#f1f5f9;margin-bottom:10px">🤖 AI Models Madaala 2026</h3>
+<table class="ctbl">
+<tr><th></th><th style="color:#c4b5fd">Claude</th><th style="color:#74d7f7">ChatGPT</th><th style="color:#4ade80">Gemini</th></tr>
+<tr><td>Hojjechuuf</td><td class="win">Barreeffama, Code</td><td>Hunda</td><td>Multimodal</td></tr>
+<tr><td>Gatii Bilisaa</td><td>Daangaan</td><td>Daangaan</td><td>Daangaan</td></tr>
+<tr><td>Gatii Kaffalti</td><td>$20/ji'a Pro</td><td>$20/ji'a Plus</td><td>$19.99/ji'a</td></tr>
+<tr><td>Context Window</td><td class="win">200k token</td><td>128k token</td><td>1M token</td></tr>
+<tr><td>Suuraa Ilaalu</td><td>✅</td><td>✅</td><td class="win">✅✅</td></tr>
+<tr><td>Internet Search</td><td>✅</td><td>✅</td><td class="win">✅ Google</td></tr>
+<tr><td>Code Hojjechuuf</td><td class="win">✅✅</td><td>✅</td><td>✅</td></tr>
+<tr><td>Afaan Hedduu</td><td>✅</td><td>✅</td><td class="win">✅✅</td></tr>
+</table>
+<p style="margin-top:10px;font-size:12px;color:#94a3b8">
+🟣 <strong style="color:#c4b5fd">Claude</strong> fayyadami yoo: barreeffama dheeraa, qorannoo, code cimaadha<br>
+🔵 <strong style="color:#74d7f7">ChatGPT</strong> fayyadami yoo: tool hedduu, plugin, ecosystem barbaadde<br>
+🟢 <strong style="color:#4ade80">Gemini</strong> fayyadami yoo: Google fayyadamta, multimodal, afaan hedduu
+</p>`,
+   en:`<h3 style="color:#f1f5f9;margin-bottom:10px">🤖 AI Models Comparison 2026</h3>
+<table class="ctbl">
+<tr><th></th><th style="color:#c4b5fd">Claude</th><th style="color:#74d7f7">ChatGPT</th><th style="color:#4ade80">Gemini</th></tr>
+<tr><td>Best for</td><td class="win">Writing, Code</td><td>Everything</td><td>Multimodal</td></tr>
+<tr><td>Free tier</td><td>Limited</td><td>Limited</td><td>Limited</td></tr>
+<tr><td>Paid price</td><td>$20/mo Pro</td><td>$20/mo Plus</td><td>$19.99/mo</td></tr>
+<tr><td>Context window</td><td>200k tokens</td><td>128k tokens</td><td class="win">1M tokens</td></tr>
+<tr><td>Image vision</td><td>✅</td><td>✅</td><td class="win">✅✅</td></tr>
+<tr><td>Web search</td><td>✅</td><td>✅</td><td class="win">✅ Google</td></tr>
+<tr><td>Coding</td><td class="win">✅✅</td><td>✅</td><td>✅</td></tr>
+</table>
+<p style="margin-top:10px;font-size:12px;color:#94a3b8">
+🟣 Use <strong style="color:#c4b5fd">Claude</strong> for: long writing, research, coding<br>
+🔵 Use <strong style="color:#74d7f7">ChatGPT</strong> for: plugins, ecosystem, general use<br>
+🟢 Use <strong style="color:#4ade80">Gemini</strong> for: Google integration, multimodal, languages
+</p>`,
+   am:`<h3 style="color:#f1f5f9;margin-bottom:10px">🤖 AI Models ማወዳደር 2026</h3><p style="color:#94a3b8">Claude ለጽሑፍ ምርጥ። ChatGPT ትልቁ ecosystem። Gemini ለGoogle integration ምርጥ።</p>`},
+   url:"https://claude.ai"},
+];
+
+const CODE_DATA=[
+  {id:"co1",type:"code",icon:"💻",impact:"high",source:"Multiple",date:"2026",
+   title:{om:"Code AI Tools Gaarii — GitHub Copilot vs Cursor vs Claude Code",en:"Best AI Coding Tools 2026 — GitHub Copilot vs Cursor vs Claude Code",am:"ምርጥ AI Coding Tools 2026"},
+   summary:{om:"Cursor sadarkaa 1ffaa coding AI 2026 — VS Code irratti hojjeta, AI tiin code barreessa. GitHub Copilot bal'inaan fayyadamama. Claude Code terminal keessatti hojjeta. Google AI Studio bilisaan app hojjechuu.",en:"Cursor is the #1 AI coding tool in 2026, built on VS Code. GitHub Copilot is most widely used. Claude Code works in terminal. Google AI Studio builds apps for free.",am:"Cursor በ2026 ምርጥ AI coding tool ነው። GitHub Copilot በስፋት ጥቅም ላይ ይውላል።"},
+   detail:{om:`<h3 style="color:#f1f5f9;margin-bottom:10px">💻 Code AI Tools Sadarkaa 2026</h3>
+<table class="ctbl">
+<tr><th>#</th><th>Tool</th><th>Cimina</th><th>Bilisaa?</th><th>Gatii</th></tr>
+<tr><td>1</td><td><strong class="win">Cursor</strong></td><td>VS Code + AI, Codebase guutuu</td><td>✅ 2 weeks trial</td><td>$20/ji'a+</td></tr>
+<tr><td>2</td><td><strong>GitHub Copilot</strong></td><td>IDE hunda keessa, Completion</td><td>✅ Bilisaa (student)</td><td>$10/ji'a+</td></tr>
+<tr><td>3</td><td><strong>Claude Code</strong></td><td>Terminal, Full codebase</td><td>✅ Claude plan</td><td>$20/ji'a+</td></tr>
+<tr><td>4</td><td><strong>Google AI Studio</strong></td><td>App uumuu bilisaa, Android</td><td>💯 Guutumaan</td><td>Bilisaa</td></tr>
+<tr><td>5</td><td><strong>Windsurf</strong></td><td>Agentic coding, cimaa</td><td>✅ Xiqqoo</td><td>$15/ji'a+</td></tr>
+<tr><td>6</td><td><strong>Replit AI</strong></td><td>Browser keessa, Deploy bilisaa</td><td>✅ Daangaan</td><td>$20/ji'a+</td></tr>
+<tr><td>7</td><td><strong>v0 (Vercel)</strong></td><td>UI uumuu, React</td><td>✅ Xiqqoo</td><td>$20/ji'a+</td></tr>
+</table>
+<p style="margin-top:10px;font-size:12px;color:#4ade80">💡 Bilisaadhan app uumuuf: Google AI Studio. Koodii guddaaf: Cursor ykn Claude Code. Python/JS: GitHub Copilot.</p>`,
+   en:`<h3 style="color:#f1f5f9;margin-bottom:10px">💻 AI Coding Tools 2026</h3>
+<table class="ctbl">
+<tr><th>#</th><th>Tool</th><th>Best For</th><th>Free?</th><th>Price</th></tr>
+<tr><td>1</td><td><strong class="win">Cursor</strong></td><td>Full codebase AI, VS Code based</td><td>✅ 2-week trial</td><td>$20/mo+</td></tr>
+<tr><td>2</td><td><strong>GitHub Copilot</strong></td><td>All IDEs, code completion</td><td>✅ Free for students</td><td>$10/mo+</td></tr>
+<tr><td>3</td><td><strong>Claude Code</strong></td><td>Terminal, full repo editing</td><td>✅ With Claude plan</td><td>$20/mo+</td></tr>
+<tr><td>4</td><td><strong>Google AI Studio</strong></td><td>Build complete apps free</td><td>💯 Always free</td><td>Free</td></tr>
+<tr><td>5</td><td><strong>Replit AI</strong></td><td>Browser-based, deploy free</td><td>✅ Limited</td><td>$20/mo+</td></tr>
+</table>
+<p style="margin-top:10px;font-size:12px;color:#4ade80">💡 Build apps free: Google AI Studio. Full coding: Cursor or Claude Code. Completion: GitHub Copilot.</p>`,
+   am:`<h3 style="color:#f1f5f9;margin-bottom:10px">💻 AI Coding Tools 2026</h3><p style="color:#94a3b8">Cursor ደረጃ 1ኛ ነው። Google AI Studio ሙሉ ለሙሉ ነፃ ነው። GitHub Copilot ለተማሪዎች ነፃ ነው።</p>`},
+   url:"https://cursor.sh"},
+];
+
+// ═══════════════════════════
+// STATE
+// ═══════════════════════════
+let lang="om", tab="news", sq="", sv=[], spkId=null;
+try{sv=JSON.parse(localStorage.getItem("aoro_v3")||"[]");}catch{}
+
+const TAB_DATA={news:NEWS_DATA, models:MODELS_DATA, voice:VOICE_DATA, video:VIDEO_DATA, image:IMAGE_DATA, code:CODE_DATA};
+const TABS=[
+  {id:"news",key:"news"},{id:"models",key:"models"},{id:"voice",key:"voice"},
+  {id:"video",key:"video"},{id:"image",key:"image"},{id:"code",key:"code"},
+  {id:"saved",key:"saved"},{id:"settings",key:"settings"}
+];
+
+// ═══════════════════════════
+// INIT
+// ═══════════════════════════
+function init(){buildLang();buildNav();showTab("news");}
+
+function buildLang(){
+  document.getElementById("lbar").innerHTML=LANGS.map(l=>
+    `<button class="lbtn ${l.code===lang?"on":""}" onclick="setLang('${l.code}')">${l.label}</button>`
+  ).join("");
 }
+
+function t(key){return (TR[lang]||TR.en)[key]||key;}
+
+function setLang(c){lang=c;document.body.classList.toggle("rtl",c==="ar");buildLang();buildNav();if(tab==="settings")renderSettings();else render();}
+
+function buildNav(){
+  document.getElementById("navbar").innerHTML=TABS.map(tb=>{
+    const label = t(tb.key) || tb.id;
+    return `<button class="nbtn ${tb.id===tab?"on":""}" onclick="showTab('${tb.id}')">${label}</button>`;
+  }).join("");
+}
+
+function showTab(tb){
+  tab=tb;sq="";
+  const si=document.getElementById("sinp");if(si)si.value="";
+  const xb=document.getElementById("xbtn");if(xb)xb.style.display="none";
+  buildNav();
+  const showSearch=["news","models","voice","video","image","code","saved"].includes(tb);
+  document.getElementById("search-wrap").style.display=showSearch?"block":"none";
+  if(tb==="settings")renderSettings();
+  else render();
+}
+
+// ═══════════════════════════
+// RENDER
+// ═══════════════════════════
+function render(){
+  const grid=document.getElementById("grid");
+  const empty=document.getElementById("empty");
+  let data=tab==="saved"?sv:(TAB_DATA[tab]||[]);
+  if(sq){const q=sq.toLowerCase();data=data.filter(d=>{const ti=getT(d.title);const su=getT(d.summary);return ti.toLowerCase().includes(q)||su.toLowerCase().includes(q);});}
+  if(!data.length){grid.innerHTML="";empty.style.display="block";document.getElementById("emsg").textContent=tab==="saved"?t("noSaved"):t("noResult");return;}
+  empty.style.display="none";
+  grid.innerHTML=data.map((d,i)=>{
+    const isSv=sv.find(x=>x.id===d.id);const isSpk=spkId===d.id;
+    return`<div class="card" style="animation-delay:${Math.min(i,6)*.06}s" onclick="openDetail('${d.id}')">
+      <div class="cthumb" style="background:${thumbBg(d.icon)}">${d.icon}</div>
+      <div class="cbody">
+        <div class="cmeta">
+          <span class="badge ${d.impact}">${impE(d.impact)}</span>
+          <span class="msrc">📰 ${esc(d.source)}</span>
+          <span class="mdate">📅 ${d.date}</span>
+        </div>
+        <h3 class="ctitle">${esc(getT(d.title))}</h3>
+        <p class="csum">${esc(getT(d.summary).slice(0,140))}...</p>
+        <div class="cacts" onclick="event.stopPropagation()">
+          <button class="abtn ${isSpk?"spk":""}" onclick="spk('${d.id}','${escA(getT(d.title)+'. '+getT(d.summary))}')">${isSpk?t("stop"):t("listen")}</button>
+          <button class="abtn ${isSv?"svd":""}" onclick="toggleSv('${d.id}')">${isSv?t("saved_btn"):t("save")}</button>
+          ${d.url?`<a class="rlink" href="${escA(d.url)}" target="_blank" rel="noopener" onclick="event.stopPropagation()">${t("tryIt")}</a>`:""}
+        </div>
+      </div>
+    </div>`;
+  }).join("");
+}
+
+function renderSettings(){
+  document.getElementById("grid").innerHTML=`
+  <div style="padding:4px 0">
+    <div style="background:rgba(255,255,255,.04);border:1px solid var(--border);border-radius:14px;padding:16px;margin-bottom:12px">
+      <div style="font-size:13px;font-weight:700;color:var(--accent);margin-bottom:10px">🌍 ${lang==="om"?"Afaan Filadhu":lang==="am"?"ቋንቋ ምረጥ":lang==="en"?"Select Language":"Language"}</div>
+      <div style="display:flex;gap:6px;flex-wrap:wrap">${LANGS.map(l=>`<button class="lbtn ${l.code===lang?"on":""}" onclick="setLang('${l.code}');renderSettings()">${l.label}</button>`).join("")}</div>
+    </div>
+    <div style="background:rgba(255,255,255,.04);border:1px solid var(--border);border-radius:14px;padding:16px;margin-bottom:12px">
+      <div style="font-size:13px;font-weight:700;color:var(--accent);margin-bottom:10px">📊 ${lang==="om"?"Waa'ee App":lang==="am"?"ስለ App":"About App"}</div>
+      <div style="font-size:12px;color:var(--muted);line-height:1.9">
+        📅 ${lang==="om"?"Haaromfame":"Updated"}: June 10, 2026<br>
+        🤖 AI Models: ${MODELS_DATA.length} items<br>
+        🔊 ${t("voice")}: ${VOICE_DATA.length} items<br>
+        🎬 ${t("video")}: ${VIDEO_DATA.length} items<br>
+        🖼️ ${t("image")}: ${IMAGE_DATA.length} items<br>
+        💻 ${t("code")}: ${CODE_DATA.length} items<br>
+        🔖 ${t("saved")}: ${sv.length} items
+      </div>
+    </div>
+    <div class="cbox">
+      <div style="font-size:42px;margin-bottom:10px">👨‍💻</div>
+      <div style="font-size:22px;font-weight:800;color:#f1f5f9;font-family:'Syne',sans-serif">Musab Anes</div>
+      <div style="font-size:13px;color:var(--accent);margin-top:4px">${lang==="om"?"Uumaa fi Abbaa":lang==="am"?"ፈጣሪ":"Creator & Owner"} — Ai Oro Tech News</div>
+      <div style="font-size:12px;color:var(--dim);margin-top:10px;line-height:1.7">
+        ${lang==="om"?"App kana Musab Anes uume — Afaan Oromoo fi Ethiopia keessatti AI odeeffannoo namootaaf kennuuf.":lang==="am"?"ይህ app Musab Anes ፈጥሯል — ለኢትዮጵያ ሕዝቦች AI መረጃ ለማቅረብ።":"This app was created by Musab Anes to bring AI knowledge to Oromo and Ethiopian communities."}<br><br>
+        🧠 Powered by Claude AI · Anthropic<br>
+        ☁️ Deployed on Cloudflare Workers<br>
+        📅 Version 3.0 — June 2026
+      </div>
+    </div>
+    <div style="margin-top:12px;text-align:center">
+      <button onclick="sv=[];try{localStorage.removeItem('aoro_v3');}catch{}buildNav();render();showTab('news')" style="background:rgba(255,71,87,.1);border:1px solid rgba(255,71,87,.3);color:#ff6b7a;padding:8px 16px;border-radius:9px;cursor:pointer;font-family:inherit;font-size:12px">
+        🗑️ ${lang==="om"?"Kuusamee Hunda Haqi":lang==="am"?"ሁሉንም ሰርዝ":"Clear All Saved"}
+      </button>
+    </div>
+  </div>`;
+  document.getElementById("empty").style.display="none";
+}
+
+// ═══════════════════════════
+// DETAIL MODAL
+// ═══════════════════════════
+function openDetail(id){
+  const all=[...NEWS_DATA,...MODELS_DATA,...VOICE_DATA,...VIDEO_DATA,...IMAGE_DATA,...CODE_DATA,...sv];
+  const d=all.find(x=>x.id===id);if(!d)return;
+  const det=d.detail?getT(d.detail):esc(getT(d.summary));
+  document.getElementById("mcontent").innerHTML=`
+    <div style="text-align:center;font-size:44px;margin-bottom:12px">${d.icon}</div>
+    <div class="mtitle">${esc(getT(d.title))}</div>
+    <div style="display:flex;gap:6px;margin-bottom:14px;flex-wrap:wrap">
+      <span class="badge ${d.impact}">${impE(d.impact)}</span>
+      <span class="msrc">📰 ${esc(d.source)}</span>
+      <span class="mdate">📅 ${d.date}</span>
+    </div>
+    <div class="mbody">${det}</div>
+    ${d.url?`<a class="mlink" href="${escA(d.url)}" target="_blank" rel="noopener">${t("tryIt")}</a>`:""}
+  `;
+  document.getElementById("mbg").classList.add("open");
+  document.body.style.overflow="hidden";
+}
+function closeMod(e){if(e.target===document.getElementById("mbg"))closeModD();}
+function closeModD(){document.getElementById("mbg").classList.remove("open");document.body.style.overflow="";}
+
+// ═══════════════════════════
+// ACTIONS
+// ═══════════════════════════
+function getT(obj){if(!obj)return"";if(typeof obj==="string")return obj;return obj[lang]||obj.en||obj.om||Object.values(obj)[0]||"";}
+function doSearch(){sq=document.getElementById("sinp").value.trim();document.getElementById("xbtn").style.display=sq?"inline-block":"none";render();}
+function clearSearch(){sq="";document.getElementById("sinp").value="";document.getElementById("xbtn").style.display="none";render();}
+function toggleSv(id){
+  const all=[...NEWS_DATA,...MODELS_DATA,...VOICE_DATA,...VIDEO_DATA,...IMAGE_DATA,...CODE_DATA];
+  const d=all.find(x=>x.id===id);if(!d)return;
+  const idx=sv.findIndex(x=>x.id===id);
+  if(idx>=0)sv.splice(idx,1);else sv.unshift(d);
+  try{localStorage.setItem("aoro_v3",JSON.stringify(sv));}catch{}
+  buildNav();render();
+}
+function spk(id,text){
+  window.speechSynthesis.cancel();
+  if(spkId===id){spkId=null;render();return;}
+  const u=new SpeechSynthesisUtterance(text);
+  const vs=window.speechSynthesis.getVoices();
+  const lm={om:"en",am:"am",ti:"ti",so:"so",ar:"ar",en:"en"};
+  const v=vs.find(x=>x.lang.startsWith(lm[lang]||"en"))||vs[0];
+  if(v)u.voice=v;u.rate=0.88;
+  u.onend=u.onerror=()=>{spkId=null;render();};
+  window.speechSynthesis.speak(u);spkId=id;render();
+}
+function esc(s){return(s||"").replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;");}
+function escA(s){return(s||"").replace(/'/g,"&#39;").replace(/\n/g," ").slice(0,200);}
+function impE(i){return{high:"🔥 HIGH",medium:"⚡ MED",low:"✅ LOW"}[i]||"📌";}
+function thumbBg(icon){const m={"🏗️":"linear-gradient(135deg,#0f172a,#1e3a5f)","📺":"linear-gradient(135deg,#1a0000,#3a0010)","🔊":"linear-gradient(135deg,#0a1e0a,#0a3020)","🎬":"linear-gradient(135deg,#0a0a1e,#1a0a3e)","🖼️":"linear-gradient(135deg,#0a1e10,#0a2e1a)","💻":"linear-gradient(135deg,#0f1923,#1a2e3a)","🤖":"linear-gradient(135deg,#1e0a3e,#0a1e3e)"};return m[icon]||"linear-gradient(135deg,#06060f,#0d1117)";}
+window.onload=init;
+</script>
+</body>
+</html>
